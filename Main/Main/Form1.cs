@@ -29,9 +29,11 @@ namespace Main
             arr[6] = textBox10.Text;
             arr[7] = textBox5.Text;
 
-            var d = new ServiceReference1.Service1Client();
-            d.AddNewReader(arr);
-
+            if (checkBox1.Checked && checkBox2.Checked)
+            {
+                var d = new ServiceReference1.Service1Client();
+                d.AddNewReader(arr);
+            }           
         }
     }
 }

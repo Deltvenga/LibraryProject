@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Main\Main.csproj", "{6A29D275-06BF-41D4-9364-0D5FEE2B0B98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Main\Client.csproj", "{6A29D275-06BF-41D4-9364-0D5FEE2B0B98}"
 	ProjectSection(ProjectDependencies) = postProject
 		{628F19F4-192E-414B-B1AF-A6CB7F20D1E5} = {628F19F4-192E-414B-B1AF-A6CB7F20D1E5}
 	EndProjectSection
