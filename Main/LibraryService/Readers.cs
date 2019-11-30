@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Runtime.Serialization;
 using System.ServiceModel;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace LibraryService
 {
@@ -13,10 +15,16 @@ namespace LibraryService
         [DataMember]
         List<Reader> _listReaders = new List<Reader>();
 
-        //условно
+        string connectionString = "Data Source=LAPTOP-20V122MK;Integrated Security=SSPI;Initial Catalog=Library";
+        
         [OperationContract]
         public List<Reader> HasExpires(string date)
         {
+            SqlConnection con = new SqlConnection(connectionString);
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "";
             return _listReaders;
         }
     }
