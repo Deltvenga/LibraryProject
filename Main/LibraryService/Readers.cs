@@ -24,8 +24,13 @@ namespace LibraryService
             con.Open();
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "";
+            cmd.CommandText = "Select DataFactEnd From Abonement Where DataEnd ";
             return _listReaders;
+        }
+
+        private string getDate(int day, int month, int year)
+        {
+            return (year + '-' + month + '-' + day).ToString();
         }
     }
 }
