@@ -10,77 +10,31 @@ namespace LibraryService
     [DataContract]
     public class Reader
     {
-        int _idReader;
-        string _firstName;
-        string _lastName;
-        string _middleName;
-        string _birthDate;
-        int _passportSerial;
-        int _passportNumber;
-        string _address;
-        string _phoneNumber;
+        [DataMember]
+        public int IdReader { get; set; }
 
         [DataMember]
-        public int IdReader
-        {
-            get { return _idReader; }
-            set { _idReader = value; }
-        }
+        public string FirstName { get; set; }
 
         [DataMember]
-        public string FirstName
-        {
-            get { return _firstName; }
-            set { _firstName = value; }
-        }
+        public string LastName { get; set; }
 
         [DataMember]
-        public string LastName
-        {
-            get { return _lastName; }
-            set { _lastName = value; }
-        }
+        public string MiddleName { get; set; }
 
         [DataMember]
-        public string MiddleName
-        {
-            get { return _middleName; }
-            set { _middleName = value; }
-        }
+        public string BirthDate { get; set; }
 
         [DataMember]
-        public string BirthDate
-        {
-            get { return _birthDate; }
-            set { _birthDate = value; }
-        }
+        public int PassportSerial { get; set; }
 
         [DataMember]
-        public int PassportSerial
-        {
-            get { return _passportSerial; }
-            set { _passportSerial = value; }
-        }
+        public int PassportNumber { get; set; }
 
         [DataMember]
-        public int PassportNumber
-        {
-            get { return _passportNumber; }
-            set { _passportNumber = value; }
-        }
+        public string Address { get; set; }
 
         [DataMember]
-        public string Address
-        {
-            get { return _address; }
-            set { _address = value; }
-        }
-
-        [DataMember]
-        public string PhoneNumber
-        {
-            get { return _phoneNumber; }
-            set { _phoneNumber = value; }
-        }
+        public string PhoneNumber { get; set; }
     }
 }
