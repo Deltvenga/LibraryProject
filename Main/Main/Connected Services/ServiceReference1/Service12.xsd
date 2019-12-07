@@ -2,6 +2,7 @@
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:61382/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/LibraryService" />
   <xs:import schemaLocation="http://localhost:61382/Service1.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:61382/Service1.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System" />
   <xs:element name="GetData">
     <xs:complexType>
       <xs:sequence>
@@ -40,6 +41,47 @@
   <xs:element name="AddNewReaderResponse">
     <xs:complexType>
       <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HasExpires">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HasExpiresResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="HasExpiresResult" nillable="true" type="q4:TupleOfArrayOfstringArrayOfArrayOfstring0dMmj3_Sh" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBooks">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBooksResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/LibraryService" minOccurs="0" name="GetBooksResult" nillable="true" type="q5:ArrayOfBook" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddNewAbonement">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idReader" type="xs:int" />
+        <xs:element minOccurs="0" name="idBook" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddNewAbonementResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AddNewAbonementResult" nillable="true" type="xs:string" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
 </xs:schema>

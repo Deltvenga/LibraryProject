@@ -6,7 +6,7 @@
     <EnableDataBinding>true</EnableDataBinding>
     <ExcludedTypes />
     <ImportXmlTypes>false</ImportXmlTypes>
-    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateInternalTypes>true</GenerateInternalTypes>
     <GenerateMessageContracts>false</GenerateMessageContracts>
     <NamespaceMappings />
     <CollectionMappings />
@@ -25,6 +25,7 @@
     <MetadataFile FileName="Service12.xsd" MetadataType="Schema" ID="f3210ae2-1acf-4b49-97f8-f30517076e90" SourceId="1" SourceUrl="http://localhost:61382/Service1.svc?xsd=xsd0" />
     <MetadataFile FileName="Service11.xsd" MetadataType="Schema" ID="5f5533ca-3eca-42ce-9996-c9d68121ac83" SourceId="1" SourceUrl="http://localhost:61382/Service1.svc?xsd=xsd2" />
     <MetadataFile FileName="Service1.wsdl" MetadataType="Wsdl" ID="09d78d59-4be5-4597-a0d4-3587da4a2f9a" SourceId="1" SourceUrl="http://localhost:61382/Service1.svc?wsdl" />
+    <MetadataFile FileName="Service14.xsd" MetadataType="Schema" ID="4ca419a0-6bb5-4737-8480-1c44204e06f0" SourceId="1" SourceUrl="http://localhost:61382/Service1.svc?xsd=xsd4" />
     <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="6d70dccb-8367-4f0a-8c2c-39149af301bc" SourceId="1" SourceUrl="http://localhost:61382/Service1.svc?xsd=xsd1" />
     <MetadataFile FileName="Service1.disco" MetadataType="Disco" ID="e47fd719-83d4-46b3-a922-f7c4e224f4ca" SourceId="1" SourceUrl="http://localhost:61382/Service1.svc?disco" />
     <MetadataFile FileName="Service13.xsd" MetadataType="Schema" ID="9726f3c2-4c0c-4a56-bdf7-c1dfaf70a417" SourceId="1" SourceUrl="http://localhost:61382/Service1.svc?xsd=xsd3" />

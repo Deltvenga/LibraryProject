@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -22,6 +23,14 @@ namespace LibraryService
         [OperationContract]
         void AddNewReader(string[] array);
 
+        [OperationContract]
+        Tuple<List<string>, List<List<string>>> HasExpires();
+
+        [OperationContract]
+        Book[] GetBooks(string name);
+
+        [OperationContract]
+        string AddNewAbonement(int idReader, int idBook);
         // TODO: Добавьте здесь операции служб
     }
 

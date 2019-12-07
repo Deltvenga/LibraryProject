@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Data;
 
 namespace Main
 {
@@ -27,6 +28,44 @@ namespace Main
                 var d = new ServiceReference1.Service1Client();
                 d.AddNewReader(arr);
             }           
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var d = new ServiceReference1.Service1Client();
+            var data = d.HasExpires();
+
+            var dt = new DataTable();
+            
+            foreach(var col in data.Item1)
+            {
+                dt.Columns.Add(col);
+            }
+            foreach(var row in data.Item2)
+            {
+                dt.Rows.Add(row);
+            }
+            dataGridView1.DataSource = dt;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var d = new ServiceReference1.Service1Client();
+            var data = d.GetBooks(textBox7.Text);
+
+            dataGridView2.Rows.Clear();
+              
+            for (int i = 0; i < data.Length; i++)
+            {            
+                dataGridView2.Rows.Add(data[i].IdBook, data[i].NameBook, data[i].Year, data[i].Publish, data[i].PublishCountry, data[i].PageCount, data[i].Language, data[i].GetCount); 
+            }            
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            var d = new ServiceReference1.Service1Client();
+            var data = d.AddNewAbonement(int.Parse(textBox6.Text), int.Parse(textBox11.Text));
+            textBox12.Text = data;
         }
     }
 }

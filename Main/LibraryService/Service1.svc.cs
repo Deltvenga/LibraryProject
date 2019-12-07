@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -36,12 +31,8 @@ namespace LibraryService
 
         public void AddNewReader(string[] newReaderArray)
         {
-            //проверки на пустые поля, серия - 4 цифры (первая - не ноль), номер - 6 цифр (аналогично), номер телефона - 11 цифр
-            //фио - из букв, телефон, паспорт - из цифр
-            //CheckError(newReaderArray);
-
-            if (!CheckBlackList(newReaderArray[4], newReaderArray[5]))
-            {
+            //if (!CheckBlackList(newReaderArray[4], newReaderArray[5]))
+            //{
                 SqlConnection con = new SqlConnection(connectionString);
                 con.Open();
                 SqlCommand cmd = con.CreateCommand();
@@ -51,28 +42,55 @@ namespace LibraryService
                 cmd.ExecuteNonQuery();
 
                 con.Close();
-            }           
+            //}           
         }
 
-        //public string CheckError(string[] array)
+        //public bool CheckBlackList(string passportSerial, string passportNumber)
         //{
-        //    string str = "";
-        //    return str;
+        //    SqlConnection con = new SqlConnection(connectionString);
+        //    con.Open();
+        //    SqlCommand cmd = con.CreateCommand();
+        //    cmd.CommandType = CommandType.Text;
+        //    cmd.CommandText =
+        //        "Select idReader From BlackList, Readers Where Readers.passportSerial = '" + passportSerial + "' and Readers.passportNumber = '" + passportNumber + "';";
+        //    string result = cmd.ExecuteScalar().ToString();
+
+        //    if (result != null)
+        //        return true;
+        //    return false;
         //}
 
-        public bool CheckBlackList(string passportSerial, string passportNumber)
+        public Tuple<List<string>, List<List<string>>> HasExpires()
         {
+            Readers readers = new Readers();
+            var hh = readers.HasExpires();
+
+            return hh;
+        }
+
+        public Book[] GetBooks(string name)
+        {
+            BookRepository bookRepository = new BookRepository();
+            var books = bookRepository.FindBooks(name);
+            return books;
+        }
+
+        public string AddNewAbonement(int idReader, int idBook)
+        {
+            var day = DateTime.Now.Day;
+            var month = DateTime.Now.Month;
+            var year = DateTime.Now.Year;
+
+            var dateNow = (year + "-" + month + "-" + day).ToString();
+            var dateEnd = DateTime.Now.Date.AddDays(10).ToShortDateString();
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText =
-                "Select idReader From BlackList, Readers Where Readers.passportSerial = '" + passportSerial + "' and Readers.passportNumber = '" + passportNumber + "';";
-            string result = cmd.ExecuteScalar().ToString();
+            cmd.CommandText = "Insert into Abonement Values('" + idReader + "','" + idBook + "','" + dateNow + "','" + dateEnd + "', NULL);";
+            cmd.ExecuteNonQuery();
 
-            if (result != null)
-                return true;
-            return false;
+            return dateEnd.ToString();
         }
     }
 }

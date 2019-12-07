@@ -6,6 +6,7 @@
       <xsd:import schemaLocation="http://localhost:61382/Service1.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:61382/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/LibraryService" />
       <xsd:import schemaLocation="http://localhost:61382/Service1.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:61382/Service1.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IService1_GetData_InputMessage">
@@ -26,6 +27,24 @@
   <wsdl:message name="IService1_AddNewReader_OutputMessage">
     <wsdl:part name="parameters" element="tns:AddNewReaderResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_HasExpires_InputMessage">
+    <wsdl:part name="parameters" element="tns:HasExpires" />
+  </wsdl:message>
+  <wsdl:message name="IService1_HasExpires_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HasExpiresResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetBooks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBooks" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetBooks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBooksResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddNewAbonement_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddNewAbonement" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddNewAbonement_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddNewAbonementResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="GetData">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetData" message="tns:IService1_GetData_InputMessage" />
@@ -38,6 +57,18 @@
     <wsdl:operation name="AddNewReader">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddNewReader" message="tns:IService1_AddNewReader_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddNewReaderResponse" message="tns:IService1_AddNewReader_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="HasExpires">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/HasExpires" message="tns:IService1_HasExpires_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/HasExpiresResponse" message="tns:IService1_HasExpires_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBooks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetBooks" message="tns:IService1_GetBooks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetBooksResponse" message="tns:IService1_GetBooks_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddNewAbonement">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddNewAbonement" message="tns:IService1_AddNewAbonement_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddNewAbonementResponse" message="tns:IService1_AddNewAbonement_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -62,6 +93,33 @@
     </wsdl:operation>
     <wsdl:operation name="AddNewReader">
       <soap:operation soapAction="http://tempuri.org/IService1/AddNewReader" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HasExpires">
+      <soap:operation soapAction="http://tempuri.org/IService1/HasExpires" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBooks">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetBooks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddNewAbonement">
+      <soap:operation soapAction="http://tempuri.org/IService1/AddNewAbonement" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
