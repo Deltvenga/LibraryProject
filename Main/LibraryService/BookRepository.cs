@@ -6,13 +6,14 @@ using System.Linq;
 using System.Web;
 using System.Runtime.Serialization;
 using System.ServiceModel;
+using LibraryService.Properties;
 
 namespace LibraryService
 {
     [DataContract]
     public class BookRepository
     {
-        string connectionString = "Data Source=LAPTOP-20V122MK;Integrated Security=SSPI;Initial Catalog=Library";
+        static string connectionString = Settings.Default.RomaCon;
 
         [DataMember]
         List<Book> _listBooks = new List<Book>();
@@ -53,14 +54,16 @@ namespace LibraryService
             return book;
         }
 
+
         [OperationContract]
-        public Book[] FindBooks(string name)
+        public Book[] FindBooks(string searchString)
         {
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "Select * From Books Where NameBook = '" + name + "';";
+            string sqlString = "Select * From Books Where lower(NameBook) LIKE lower('%?%') OR idBook LIKE ('?') OR lower(Publish) LIKE lower('%?%');";
+            cmd.CommandText = sqlString.Replace("?", searchString);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -84,7 +87,7 @@ namespace LibraryService
 
                 SqlCommand countCmd = con.CreateCommand();
                 countCmd.CommandType = CommandType.Text;
-                countCmd.CommandText = "Select count(Abonement.id) From Abonement inner join Books on Books.idBook = Abonement.idBook and Books.NameBook = '" + name + "' where Abonement.idBook = '" + books.IdBook +"';";
+                countCmd.CommandText = "Select count(Abonement.id) From Abonement inner join Books on Books.idBook = Abonement.idBook where Abonement.idBook = '" + books.IdBook +"';";
                 count = int.Parse(countCmd.ExecuteScalar().ToString());
 
                 books.Captures = count;

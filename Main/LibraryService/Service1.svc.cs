@@ -12,7 +12,11 @@ namespace LibraryService
             return string.Format("You entered: {0}", value);
         }
 
-        string connectionString = "Data Source=LAPTOP-20V122MK;Integrated Security=SSPI;Initial Catalog=Library";
+        //Элино подключение
+        //string connectionString = "Data Source=LAPTOP-20V122MK;Integrated Security=SSPI;Initial Catalog=Library";
+
+        //Ромино подключение
+        static string connectionString = "Data Source=LAPTOP-OV7ODJ7P;Integrated Security=SSPI;Initial Catalog=Library";
 
         public void AddNewReader(string[] newReaderArray)
         {
