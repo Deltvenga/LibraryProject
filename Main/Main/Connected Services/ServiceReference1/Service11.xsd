@@ -15,7 +15,8 @@
   <xs:element name="ArrayOfBook" nillable="true" type="tns:ArrayOfBook" />
   <xs:complexType name="Book">
     <xs:sequence>
-      <xs:element minOccurs="0" name="GetCount" type="xs:int" />
+      <xs:element minOccurs="0" name="Captures" type="xs:int" />
+      <xs:element minOccurs="0" name="Disrepair" type="xs:int" />
       <xs:element minOccurs="0" name="IdBook" type="xs:int" />
       <xs:element minOccurs="0" name="Language" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NameBook" nillable="true" type="xs:string" />

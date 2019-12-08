@@ -84,7 +84,10 @@ namespace Main.ServiceReference1 {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int GetCountField;
+        private int CapturesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DisrepairField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IdBookField;
@@ -118,14 +121,27 @@ namespace Main.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        internal int GetCount {
+        internal int Captures {
             get {
-                return this.GetCountField;
+                return this.CapturesField;
             }
             set {
-                if ((this.GetCountField.Equals(value) != true)) {
-                    this.GetCountField = value;
-                    this.RaisePropertyChanged("GetCount");
+                if ((this.CapturesField.Equals(value) != true)) {
+                    this.CapturesField = value;
+                    this.RaisePropertyChanged("Captures");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        internal int Disrepair {
+            get {
+                return this.DisrepairField;
+            }
+            set {
+                if ((this.DisrepairField.Equals(value) != true)) {
+                    this.DisrepairField = value;
+                    this.RaisePropertyChanged("Disrepair");
                 }
             }
         }
