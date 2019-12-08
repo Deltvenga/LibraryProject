@@ -30,5 +30,14 @@ namespace LibraryService
 
         [OperationContract]
         List<Reader> GetAllReaders();
+
+        [OperationContract]
+        Book[] GetWriteOffBooks();
+
+        [OperationContract]
+        Book[] GetReplenishBooks();
+
+        [OperationContract]
+        void DeleteWriteOffBooks();
     }
 }

@@ -45,6 +45,24 @@
   <wsdl:message name="IService1_GetAllReaders_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllReadersResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_GetWriteOffBooks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetWriteOffBooks" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetWriteOffBooks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetWriteOffBooksResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetReplenishBooks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReplenishBooks" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetReplenishBooks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReplenishBooksResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteWriteOffBooks_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteWriteOffBooks" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteWriteOffBooks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteWriteOffBooksResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="GetData">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetData" message="tns:IService1_GetData_InputMessage" />
@@ -69,6 +87,18 @@
     <wsdl:operation name="GetAllReaders">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllReaders" message="tns:IService1_GetAllReaders_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAllReadersResponse" message="tns:IService1_GetAllReaders_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWriteOffBooks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetWriteOffBooks" message="tns:IService1_GetWriteOffBooks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetWriteOffBooksResponse" message="tns:IService1_GetWriteOffBooks_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReplenishBooks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetReplenishBooks" message="tns:IService1_GetReplenishBooks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetReplenishBooksResponse" message="tns:IService1_GetReplenishBooks_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteWriteOffBooks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DeleteWriteOffBooks" message="tns:IService1_DeleteWriteOffBooks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DeleteWriteOffBooksResponse" message="tns:IService1_DeleteWriteOffBooks_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -120,6 +150,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllReaders">
       <soap:operation soapAction="http://tempuri.org/IService1/GetAllReaders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWriteOffBooks">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetWriteOffBooks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReplenishBooks">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetReplenishBooks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteWriteOffBooks">
+      <soap:operation soapAction="http://tempuri.org/IService1/DeleteWriteOffBooks" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

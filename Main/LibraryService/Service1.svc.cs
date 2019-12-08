@@ -13,7 +13,7 @@ namespace LibraryService
             return string.Format("You entered: {0}", value);
         }
 
-        static string connectionString = Settings.Default.SvyatCon;
+        static string connectionString = Settings.Default.ElyaCon;
 
         public void AddNewReader(string[] newReaderArray)
         {
@@ -69,6 +69,7 @@ namespace LibraryService
 
             var dateNow = (year + "-" + month + "-" + day).ToString();
             var dateEnd = DateTime.Now.Date.AddDays(10).ToShortDateString();
+
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();
             SqlCommand cmd = con.CreateCommand();
@@ -78,7 +79,6 @@ namespace LibraryService
 
             return dateEnd.ToString();
         }
-
         public List<Reader> GetAllReaders()
         {
             List<Reader> readers = new List<Reader>();
@@ -106,6 +106,44 @@ namespace LibraryService
             con.Close();
             return readers;
 
+        }
+
+        public static Book[] writeOffBooks;
+
+        public Book[] GetWriteOffBooks()
+        {
+            BookRepository bookRepository = new BookRepository();
+            var books = bookRepository.GetWriteOffBooks();
+            writeOffBooks = books;
+
+            return books;
+        }
+
+        public Book[] GetReplenishBooks()
+        {
+            BookRepository bookRepository = new BookRepository();
+            var books = bookRepository.ReplenishBooks();
+
+            return books;
+        }
+
+        public void DeleteWriteOffBooks()
+        {
+            SqlConnection con = new SqlConnection(connectionString);
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            for (int i = 0; i < writeOffBooks.Length; i++)
+            {
+                if (writeOffBooks[i].Status != "Выдана")
+                {
+                    cmd.CommandText = "Delete From Books Where idBook = '" + writeOffBooks[i].IdBook + "';";
+                    cmd.ExecuteNonQuery();
+                }
+                    
+            }
+            
+            con.Close();
         }
     }
 }
