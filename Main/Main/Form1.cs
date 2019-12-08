@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Data;
+using Main.ServiceReference1;
+using System.Collections.Generic;
+using LibraryService;
 
 namespace Main
 {
@@ -11,6 +14,7 @@ namespace Main
             InitializeComponent();
         }
 
+        private int currentReaderId;
         private void button1_Click(object sender, EventArgs e)
         {
             string[] arr = new string[8];
@@ -84,6 +88,38 @@ namespace Main
             currentBookId = int.Parse(currentRow.Cells[0].Value.ToString());
             currentBookName = currentRow.Cells[1].Value.ToString();
             label13.Text = currentBookName;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            var sv = new Service1Client();
+            var readers = sv.GetAllReaders();
+            List<ComboboxValues> comboboxSrc = new List<ComboboxValues>();
+            foreach (var reader in readers)
+            {
+                comboboxSrc.Add(new ComboboxValues(reader));
+            }
+            comboBox1.DisplayMember = "fio";
+            comboBox1.ValueMember = "id";
+            comboBox1.DataSource = comboboxSrc;
+            
+        }
+
+        class ComboboxValues
+        {
+
+            public ComboboxValues(Reader reader)
+            {
+                fio = reader.LastName + " " + reader.FirstName + " " + reader.MiddleName;
+                id = reader.IdReader;
+            }
+            public string fio { get; set; }
+            public int id { get; set; }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentReaderId = int.Parse(comboBox1.SelectedValue.ToString());
         }
     }
 }
