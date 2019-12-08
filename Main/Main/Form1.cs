@@ -57,7 +57,7 @@ namespace Main
               
             for (int i = 0; i < data.Length; i++)
             {            
-                dataGridView2.Rows.Add(data[i].IdBook, data[i].NameBook, data[i].Year, data[i].Publish, data[i].PublishCountry, data[i].PageCount, data[i].Language, data[i].Captures, data[i].Disrepair); 
+                dataGridView2.Rows.Add(data[i].IdBook, data[i].NameBook, data[i].Year, data[i].Publish, data[i].PublishCountry, data[i].PageCount, data[i].Language, data[i].Captures, data[i].Disrepair, data[i].Status); 
             }            
         }
 
@@ -66,6 +66,41 @@ namespace Main
             var d = new ServiceReference1.Service1Client();
             var data = d.AddNewAbonement(int.Parse(textBox6.Text), int.Parse(textBox11.Text));
             textBox12.Text = data;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            var d = new ServiceReference1.Service1Client();
+            var data = d.GetWriteOffBooks();
+            //var newdata = d.GetReplenishBooks();
+
+            dataGridView3.Rows.Clear();
+            dataGridView4.Rows.Clear();
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                dataGridView3.Rows.Add(data[i].IdBook, data[i].NameBook, data[i].Year, data[i].Publish, data[i].PublishCountry, data[i].PageCount, data[i].Language, data[i].Captures, data[i].Disrepair, data[i].Status);             
+            }         
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            var d = new ServiceReference1.Service1Client();
+            var data = d.GetReplenishBooks();
+
+            dataGridView4.Rows.Clear();
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (data[i].CountPhonetic < 4)
+                    dataGridView4.Rows.Add(data[i].NameBook, data[i].CountPhonetic);
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            var d = new ServiceReference1.Service1Client();
+            d.DeleteWriteOffBooks();
         }
     }
 }

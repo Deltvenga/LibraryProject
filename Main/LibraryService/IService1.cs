@@ -27,5 +27,14 @@ namespace LibraryService
 
         [OperationContract]
         string AddNewAbonement(int idReader, int idBook);
+
+        [OperationContract]
+        Book[] GetWriteOffBooks();
+
+        [OperationContract]
+        Book[] GetReplenishBooks();
+
+        [OperationContract]
+        void DeleteWriteOffBooks();
     }
 }

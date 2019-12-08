@@ -15,67 +15,6 @@ namespace Main.ServiceReference1 {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CompositeType", Namespace="http://schemas.datacontract.org/2004/07/LibraryService")]
-    [System.SerializableAttribute()]
-    internal partial class CompositeType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool BoolValueField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string StringValueField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal bool BoolValue {
-            get {
-                return this.BoolValueField;
-            }
-            set {
-                if ((this.BoolValueField.Equals(value) != true)) {
-                    this.BoolValueField = value;
-                    this.RaisePropertyChanged("BoolValue");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        internal string StringValue {
-            get {
-                return this.StringValueField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.StringValueField, value) != true)) {
-                    this.StringValueField = value;
-                    this.RaisePropertyChanged("StringValue");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Book", Namespace="http://schemas.datacontract.org/2004/07/LibraryService")]
     [System.SerializableAttribute()]
     internal partial class Book : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -85,6 +24,9 @@ namespace Main.ServiceReference1 {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CapturesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CountPhoneticField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int DisrepairField;
@@ -108,6 +50,9 @@ namespace Main.ServiceReference1 {
         private string PublishCountryField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StatusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int YearField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -129,6 +74,19 @@ namespace Main.ServiceReference1 {
                 if ((this.CapturesField.Equals(value) != true)) {
                     this.CapturesField = value;
                     this.RaisePropertyChanged("Captures");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        internal int CountPhonetic {
+            get {
+                return this.CountPhoneticField;
+            }
+            set {
+                if ((this.CountPhoneticField.Equals(value) != true)) {
+                    this.CountPhoneticField = value;
+                    this.RaisePropertyChanged("CountPhonetic");
                 }
             }
         }
@@ -225,6 +183,19 @@ namespace Main.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        internal string Status {
+            get {
+                return this.StatusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StatusField, value) != true)) {
+                    this.StatusField = value;
+                    this.RaisePropertyChanged("Status");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         internal int Year {
             get {
                 return this.YearField;
@@ -257,12 +228,6 @@ namespace Main.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetData", ReplyAction="http://tempuri.org/IService1/GetDataResponse")]
         System.Threading.Tasks.Task<string> GetDataAsync(int value);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IService1/GetDataUsingDataContractResponse")]
-        Main.ServiceReference1.CompositeType GetDataUsingDataContract(Main.ServiceReference1.CompositeType composite);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IService1/GetDataUsingDataContractResponse")]
-        System.Threading.Tasks.Task<Main.ServiceReference1.CompositeType> GetDataUsingDataContractAsync(Main.ServiceReference1.CompositeType composite);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddNewReader", ReplyAction="http://tempuri.org/IService1/AddNewReaderResponse")]
         void AddNewReader(string[] array);
         
@@ -286,6 +251,24 @@ namespace Main.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddNewAbonement", ReplyAction="http://tempuri.org/IService1/AddNewAbonementResponse")]
         System.Threading.Tasks.Task<string> AddNewAbonementAsync(int idReader, int idBook);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetWriteOffBooks", ReplyAction="http://tempuri.org/IService1/GetWriteOffBooksResponse")]
+        Main.ServiceReference1.Book[] GetWriteOffBooks();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetWriteOffBooks", ReplyAction="http://tempuri.org/IService1/GetWriteOffBooksResponse")]
+        System.Threading.Tasks.Task<Main.ServiceReference1.Book[]> GetWriteOffBooksAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetReplenishBooks", ReplyAction="http://tempuri.org/IService1/GetReplenishBooksResponse")]
+        Main.ServiceReference1.Book[] GetReplenishBooks();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetReplenishBooks", ReplyAction="http://tempuri.org/IService1/GetReplenishBooksResponse")]
+        System.Threading.Tasks.Task<Main.ServiceReference1.Book[]> GetReplenishBooksAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeleteWriteOffBooks", ReplyAction="http://tempuri.org/IService1/DeleteWriteOffBooksResponse")]
+        void DeleteWriteOffBooks();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeleteWriteOffBooks", ReplyAction="http://tempuri.org/IService1/DeleteWriteOffBooksResponse")]
+        System.Threading.Tasks.Task DeleteWriteOffBooksAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -323,14 +306,6 @@ namespace Main.ServiceReference1 {
             return base.Channel.GetDataAsync(value);
         }
         
-        public Main.ServiceReference1.CompositeType GetDataUsingDataContract(Main.ServiceReference1.CompositeType composite) {
-            return base.Channel.GetDataUsingDataContract(composite);
-        }
-        
-        public System.Threading.Tasks.Task<Main.ServiceReference1.CompositeType> GetDataUsingDataContractAsync(Main.ServiceReference1.CompositeType composite) {
-            return base.Channel.GetDataUsingDataContractAsync(composite);
-        }
-        
         public void AddNewReader(string[] array) {
             base.Channel.AddNewReader(array);
         }
@@ -361,6 +336,30 @@ namespace Main.ServiceReference1 {
         
         public System.Threading.Tasks.Task<string> AddNewAbonementAsync(int idReader, int idBook) {
             return base.Channel.AddNewAbonementAsync(idReader, idBook);
+        }
+        
+        public Main.ServiceReference1.Book[] GetWriteOffBooks() {
+            return base.Channel.GetWriteOffBooks();
+        }
+        
+        public System.Threading.Tasks.Task<Main.ServiceReference1.Book[]> GetWriteOffBooksAsync() {
+            return base.Channel.GetWriteOffBooksAsync();
+        }
+        
+        public Main.ServiceReference1.Book[] GetReplenishBooks() {
+            return base.Channel.GetReplenishBooks();
+        }
+        
+        public System.Threading.Tasks.Task<Main.ServiceReference1.Book[]> GetReplenishBooksAsync() {
+            return base.Channel.GetReplenishBooksAsync();
+        }
+        
+        public void DeleteWriteOffBooks() {
+            base.Channel.DeleteWriteOffBooks();
+        }
+        
+        public System.Threading.Tasks.Task DeleteWriteOffBooksAsync() {
+            return base.Channel.DeleteWriteOffBooksAsync();
         }
     }
 }
