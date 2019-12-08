@@ -63,13 +63,7 @@ namespace LibraryService
             da.Fill(dt);
             con.Close();
 
-            //var test = new DataTable();
-            //test.Columns.Add("firstName");
-            //test.Columns.Add("lastName");
-            //test.Columns.Add("middleName");
-            //test.Columns.Add("phoneNumber");
-            //test.Columns.Add("NameBook");
-            var test2 = new Dictionary<string, List<string>>()
+            var resultDict = new Dictionary<string, List<string>>()
             {
                 ["firstName"] = new List<string>(),
                 ["lastName"] = new List<string>(),
@@ -90,19 +84,18 @@ namespace LibraryService
 
             while (reader.Read())
             {              
-                test2["firstName"].Add(reader["firstName"].ToString());
-                test2["lastName"].Add(reader["lastName"].ToString());
-                test2["middleName"].Add(reader["middleName"].ToString());
-                test2["phoneNumber"].Add(reader["phoneNumber"].ToString());
-                test2["NameBook"].Add(reader["NameBook"].ToString());
+                resultDict["firstName"].Add(reader["firstName"].ToString());
+                resultDict["lastName"].Add(reader["lastName"].ToString());
+                resultDict["middleName"].Add(reader["middleName"].ToString());
+                resultDict["phoneNumber"].Add(reader["phoneNumber"].ToString());
+                resultDict["NameBook"].Add(reader["NameBook"].ToString());
                 rows.Add(new List<string> {
                     reader["firstName"].ToString(),
                     reader["lastName"].ToString(),
                     reader["middleName"].ToString(),
                     reader["phoneNumber"].ToString(),
                     reader["NameBook"].ToString()
-                });
-                //test.Rows.Add(reader["firstName"].ToString(), reader["lastName"].ToString(), reader["middleName"].ToString(), reader["phoneNumber"].ToString(), reader["NameBook"].ToString());
+                });              
             }
             return Tuple.Create(columns, rows);
         }
