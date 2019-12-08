@@ -50,6 +50,24 @@ namespace Main.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllReaders", ReplyAction="http://tempuri.org/IService1/GetAllReadersResponse")]
         System.Threading.Tasks.Task<LibraryService.Reader[]> GetAllReadersAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetWriteOffBooks", ReplyAction="http://tempuri.org/IService1/GetWriteOffBooksResponse")]
+        LibraryService.Book[] GetWriteOffBooks();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetWriteOffBooks", ReplyAction="http://tempuri.org/IService1/GetWriteOffBooksResponse")]
+        System.Threading.Tasks.Task<LibraryService.Book[]> GetWriteOffBooksAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetReplenishBooks", ReplyAction="http://tempuri.org/IService1/GetReplenishBooksResponse")]
+        LibraryService.Book[] GetReplenishBooks();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetReplenishBooks", ReplyAction="http://tempuri.org/IService1/GetReplenishBooksResponse")]
+        System.Threading.Tasks.Task<LibraryService.Book[]> GetReplenishBooksAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeleteWriteOffBooks", ReplyAction="http://tempuri.org/IService1/DeleteWriteOffBooksResponse")]
+        void DeleteWriteOffBooks();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeleteWriteOffBooks", ReplyAction="http://tempuri.org/IService1/DeleteWriteOffBooksResponse")]
+        System.Threading.Tasks.Task DeleteWriteOffBooksAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -125,6 +143,30 @@ namespace Main.ServiceReference1 {
         
         public System.Threading.Tasks.Task<LibraryService.Reader[]> GetAllReadersAsync() {
             return base.Channel.GetAllReadersAsync();
+        }
+        
+        public LibraryService.Book[] GetWriteOffBooks() {
+            return base.Channel.GetWriteOffBooks();
+        }
+        
+        public System.Threading.Tasks.Task<LibraryService.Book[]> GetWriteOffBooksAsync() {
+            return base.Channel.GetWriteOffBooksAsync();
+        }
+        
+        public LibraryService.Book[] GetReplenishBooks() {
+            return base.Channel.GetReplenishBooks();
+        }
+        
+        public System.Threading.Tasks.Task<LibraryService.Book[]> GetReplenishBooksAsync() {
+            return base.Channel.GetReplenishBooksAsync();
+        }
+        
+        public void DeleteWriteOffBooks() {
+            base.Channel.DeleteWriteOffBooks();
+        }
+        
+        public System.Threading.Tasks.Task DeleteWriteOffBooksAsync() {
+            return base.Channel.DeleteWriteOffBooksAsync();
         }
     }
 }

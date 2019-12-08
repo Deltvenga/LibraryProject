@@ -37,5 +37,11 @@ namespace LibraryService
 
         [DataMember]
         public int Disrepair { get; set; }
+
+        [DataMember]
+        public int CountPhonetic { get; set; }
+
+        [DataMember]
+        public string Status { get; set; }
     }
 }

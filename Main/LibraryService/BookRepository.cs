@@ -13,7 +13,7 @@ namespace LibraryService
     [DataContract]
     public class BookRepository
     {
-        static string connectionString = Settings.Default.RomaCon;
+        static string connectionString = Settings.Default.ElyaCon;
 
         [DataMember]
         List<Book> _listBooks = new List<Book>();
@@ -50,6 +50,7 @@ namespace LibraryService
             book.Language = DTReader["Language"].ToString();
             book.Captures = int.Parse(DTReader["Captures"].ToString());
             book.Disrepair = int.Parse(DTReader["Disrepair"].ToString());
+            book.Status = DTReader["Status"].ToString();
 
             return book;
         }
@@ -72,7 +73,7 @@ namespace LibraryService
             List<Book> list = new List<Book>();
             DataTableReader dtreader = dt.CreateDataReader();
             int count;
-            int idBook;
+            
             while (dtreader.Read())
             {
                 Book books = new Book();
@@ -84,6 +85,7 @@ namespace LibraryService
                 books.PageCount = int.Parse(dtreader["PageCount"].ToString());
                 books.Language = dtreader["Language"].ToString();                
                 books.Disrepair = int.Parse(dtreader["Disrepair"].ToString());
+                books.Status = dtreader["Status"].ToString();
 
                 SqlCommand countCmd = con.CreateCommand();
                 countCmd.CommandType = CommandType.Text;
@@ -96,6 +98,60 @@ namespace LibraryService
             }
 
             con.Close();
+            return list.ToArray();
+        }
+
+        [OperationContract]
+        public Book[] GetWriteOffBooks()
+        {
+            SqlConnection con = new SqlConnection(connectionString);
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "Select * From Books Where Disrepair = 1";
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+
+            List<Book> list = new List<Book>();
+            DataTableReader dtreader = dt.CreateDataReader();
+
+            while (dtreader.Read())
+            {
+                Book books = new Book();
+                books = bookFormer(dtreader);
+                list.Add(books);
+            }
+
+            return list.ToArray();
+        }
+
+        [OperationContract]
+        public Book[] ReplenishBooks()
+        {
+            SqlConnection con = new SqlConnection(connectionString);
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "Select NameBook, Count(NameBook) as Kol From Books Where NameBook = NameBook Group By NameBook;";
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            List<Book> list = new List<Book>();
+            DataTableReader dtreader = dt.CreateDataReader();
+
+            while (dtreader.Read())
+            {
+                Book books = new Book();
+                books.NameBook = dtreader["NameBook"].ToString();
+                books.CountPhonetic = int.Parse(dtreader["Kol"].ToString());
+                list.Add(books);
+            }
+
             return list.ToArray();
         }
     }
