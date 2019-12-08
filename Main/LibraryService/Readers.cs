@@ -7,13 +7,15 @@ using System.ServiceModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Timers;
+using LibraryService.Properties;
 
 namespace LibraryService
 {
     [DataContract]
     public class Readers
     {
-        string connectionString = "Data Source=LAPTOP-20V122MK;Integrated Security=SSPI;Initial Catalog=Library";
+        static string connectionString = Settings.Default.RomaCon;
+       
 
         public Readers()
         {

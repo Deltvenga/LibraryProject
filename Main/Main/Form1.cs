@@ -61,11 +61,29 @@ namespace Main
             }            
         }
 
+        private int currentBookId = -1;
+        private string currentBookName;
+
         private void button4_Click(object sender, EventArgs e)
         {
-            var d = new ServiceReference1.Service1Client();
-            var data = d.AddNewAbonement(int.Parse(textBox6.Text), int.Parse(textBox11.Text));
-            textBox12.Text = data;
+            if(currentBookId == -1)
+            {
+                MessageBox.Show("Книга не выбрана!");
+            } else
+            {
+                var d = new ServiceReference1.Service1Client();
+                var date = d.AddNewAbonement(int.Parse(textBox6.Text), currentBookId);
+                MessageBox.Show("Книга " + currentBookName + " выдана, дата возврата: " + date);
+            }
+            
+        }
+
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var currentRow = dataGridView2.Rows[dataGridView2.CurrentCell.RowIndex];
+            currentBookId = int.Parse(currentRow.Cells[0].Value.ToString());
+            currentBookName = currentRow.Cells[1].Value.ToString();
+            label13.Text = currentBookName;
         }
     }
 }
