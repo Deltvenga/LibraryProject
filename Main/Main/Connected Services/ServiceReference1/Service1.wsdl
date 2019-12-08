@@ -4,9 +4,9 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:61382/Service1.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:61382/Service1.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:61382/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/LibraryService" />
-      <xsd:import schemaLocation="http://localhost:61382/Service1.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:61382/Service1.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import schemaLocation="http://localhost:61382/Service1.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:61382/Service1.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import schemaLocation="http://localhost:61382/Service1.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/LibraryService" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IService1_GetData_InputMessage">
@@ -14,12 +14,6 @@
   </wsdl:message>
   <wsdl:message name="IService1_GetData_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDataResponse" />
-  </wsdl:message>
-  <wsdl:message name="IService1_GetDataUsingDataContract_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetDataUsingDataContract" />
-  </wsdl:message>
-  <wsdl:message name="IService1_GetDataUsingDataContract_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetDataUsingDataContractResponse" />
   </wsdl:message>
   <wsdl:message name="IService1_AddNewReader_InputMessage">
     <wsdl:part name="parameters" element="tns:AddNewReader" />
@@ -45,14 +39,16 @@
   <wsdl:message name="IService1_AddNewAbonement_OutputMessage">
     <wsdl:part name="parameters" element="tns:AddNewAbonementResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_GetAllReaders_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllReaders" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAllReaders_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllReadersResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="GetData">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetData" message="tns:IService1_GetData_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetDataResponse" message="tns:IService1_GetData_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetDataUsingDataContract">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetDataUsingDataContract" message="tns:IService1_GetDataUsingDataContract_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetDataUsingDataContractResponse" message="tns:IService1_GetDataUsingDataContract_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="AddNewReader">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddNewReader" message="tns:IService1_AddNewReader_InputMessage" />
@@ -70,20 +66,15 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddNewAbonement" message="tns:IService1_AddNewAbonement_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddNewAbonementResponse" message="tns:IService1_AddNewAbonement_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetAllReaders">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllReaders" message="tns:IService1_GetAllReaders_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAllReadersResponse" message="tns:IService1_GetAllReaders_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetData">
       <soap:operation soapAction="http://tempuri.org/IService1/GetData" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetDataUsingDataContract">
-      <soap:operation soapAction="http://tempuri.org/IService1/GetDataUsingDataContract" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -120,6 +111,15 @@
     </wsdl:operation>
     <wsdl:operation name="AddNewAbonement">
       <soap:operation soapAction="http://tempuri.org/IService1/AddNewAbonement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllReaders">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetAllReaders" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

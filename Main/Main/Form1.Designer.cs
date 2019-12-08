@@ -79,6 +79,8 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button2 = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -98,10 +100,10 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Location = new System.Drawing.Point(12, 41);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(888, 552);
+            this.tabControl1.Size = new System.Drawing.Size(888, 523);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -110,7 +112,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(880, 523);
+            this.tabPage1.Size = new System.Drawing.Size(880, 494);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Оформление";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -330,7 +332,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(880, 523);
+            this.tabPage2.Size = new System.Drawing.Size(880, 494);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Выдача";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -434,6 +436,7 @@
             this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dataGridView2.Location = new System.Drawing.Point(3, 130);
             this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
             this.dataGridView2.Size = new System.Drawing.Size(868, 160);
             this.dataGridView2.TabIndex = 4;
@@ -442,54 +445,63 @@
             // Column1
             // 
             this.Column1.HeaderText = "#";
+            this.Column1.MinimumWidth = 6;
             this.Column1.Name = "Column1";
             this.Column1.Width = 45;
             // 
             // Column2
             // 
             this.Column2.HeaderText = "Название";
+            this.Column2.MinimumWidth = 6;
             this.Column2.Name = "Column2";
             this.Column2.Width = 101;
             // 
             // Column3
             // 
             this.Column3.HeaderText = "Год издательства";
+            this.Column3.MinimumWidth = 6;
             this.Column3.Name = "Column3";
             this.Column3.Width = 142;
             // 
             // Column4
             // 
             this.Column4.HeaderText = "Издательство";
+            this.Column4.MinimumWidth = 6;
             this.Column4.Name = "Column4";
             this.Column4.Width = 129;
             // 
             // Column5
             // 
             this.Column5.HeaderText = "Страна издательства";
+            this.Column5.MinimumWidth = 6;
             this.Column5.Name = "Column5";
             this.Column5.Width = 163;
             // 
             // Column6
             // 
             this.Column6.HeaderText = "Кол-во страниц";
+            this.Column6.MinimumWidth = 6;
             this.Column6.Name = "Column6";
             this.Column6.Width = 128;
             // 
             // Column7
             // 
             this.Column7.HeaderText = "Язык";
+            this.Column7.MinimumWidth = 6;
             this.Column7.Name = "Column7";
             this.Column7.Width = 71;
             // 
             // Column8
             // 
             this.Column8.HeaderText = "Взято кол-во раз";
+            this.Column8.MinimumWidth = 6;
             this.Column8.Name = "Column8";
             this.Column8.Width = 117;
             // 
             // Column9
             // 
             this.Column9.HeaderText = "Disrepair";
+            this.Column9.MinimumWidth = 6;
             this.Column9.Name = "Column9";
             this.Column9.Width = 94;
             // 
@@ -532,7 +544,7 @@
             // 
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(880, 523);
+            this.tabPage3.Size = new System.Drawing.Size(880, 494);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Возврат";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -541,7 +553,7 @@
             // 
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(880, 523);
+            this.tabPage4.Size = new System.Drawing.Size(880, 494);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Списание";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -552,7 +564,7 @@
             this.tabPage5.Controls.Add(this.button2);
             this.tabPage5.Location = new System.Drawing.Point(4, 25);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(880, 523);
+            this.tabPage5.Size = new System.Drawing.Size(880, 494);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Поиск задолженностей";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -562,6 +574,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(3, 0);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(874, 240);
             this.dataGridView1.TabIndex = 1;
@@ -576,14 +589,27 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(16, 12);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(467, 24);
+            this.comboBox1.TabIndex = 3;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(924, 576);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -656,6 +682,7 @@
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryService.Properties;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -12,11 +13,7 @@ namespace LibraryService
             return string.Format("You entered: {0}", value);
         }
 
-        //Элино подключение
-        //string connectionString = "Data Source=LAPTOP-20V122MK;Integrated Security=SSPI;Initial Catalog=Library";
-
-        //Ромино подключение
-        static string connectionString = "Data Source=LAPTOP-OV7ODJ7P;Integrated Security=SSPI;Initial Catalog=Library";
+        static string connectionString = Settings.Default.SvyatCon;
 
         public void AddNewReader(string[] newReaderArray)
         {
@@ -80,6 +77,35 @@ namespace LibraryService
             cmd.ExecuteNonQuery();
 
             return dateEnd.ToString();
+        }
+
+        public List<Reader> GetAllReaders()
+        {
+            List<Reader> readers = new List<Reader>();
+            SqlConnection con = new SqlConnection(connectionString);
+            string query = "Select * From Readers";
+            con.Open();
+            SqlCommand command = new SqlCommand(query, con);
+            SqlDataReader dataReader = command.ExecuteReader();
+            
+            while (dataReader.Read())
+            {
+                Reader reader = new Reader();  
+                reader.IdReader = int.Parse(dataReader[0].ToString());
+                reader.FirstName = dataReader[1].ToString();
+                reader.LastName = dataReader[2].ToString();
+                reader.MiddleName = dataReader[3].ToString();
+                reader.BirthDate = dataReader[4].ToString();
+                reader.PassportSerial = int.Parse(dataReader[5].ToString());
+                reader.PassportNumber = int.Parse(dataReader[6].ToString());
+                reader.Address = dataReader[7].ToString();
+                reader.PhoneNumber = dataReader[8].ToString();
+                readers.Add(reader);
+            }
+            dataReader.Close();
+            con.Close();
+            return readers;
+
         }
     }
 }

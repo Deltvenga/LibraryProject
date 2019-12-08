@@ -27,5 +27,8 @@ namespace LibraryService
 
         [OperationContract]
         string AddNewAbonement(int idReader, int idBook);
+
+        [OperationContract]
+        List<Reader> GetAllReaders();
     }
 }
