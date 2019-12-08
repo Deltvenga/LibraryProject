@@ -12,7 +12,8 @@ namespace LibraryService
     [DataContract]
     public class BookRepository
     {
-        string connectionString = "Data Source=LAPTOP-20V122MK;Integrated Security=SSPI;Initial Catalog=Library";
+        // [the elyaa string] string connectionString = "Data Source=LAPTOP-20V122MK;Integrated Security=SSPI;Initial Catalog=Library";
+        string connectionString = "Data Source=DESKTOP-E4AU3DO;Initial Catalog=Library;Integrated Security=SSPI";
 
         [DataMember]
         List<Book> _listBooks = new List<Book>();

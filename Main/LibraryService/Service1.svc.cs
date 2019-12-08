@@ -12,7 +12,7 @@ namespace LibraryService
             return string.Format("You entered: {0}", value);
         }
 
-        string connectionString = "Data Source=LAPTOP-20V122MK;Integrated Security=SSPI;Initial Catalog=Library";
+        string connectionString = "Data Source=DESKTOP-E4AU3DO;Initial Catalog=Library;Integrated Security=SSPI";
 
         public void AddNewReader(string[] newReaderArray)
         {
@@ -76,6 +76,35 @@ namespace LibraryService
             cmd.ExecuteNonQuery();
 
             return dateEnd.ToString();
+        }
+
+        public List<Reader> GetAllReaders()
+        {
+            List<Reader> readers = new List<Reader>();
+            SqlConnection con = new SqlConnection(connectionString);
+            string query = "Select * From Readers";
+            con.Open();
+            SqlCommand command = new SqlCommand(query, con);
+            SqlDataReader dataReader = command.ExecuteReader();
+            
+            while (dataReader.Read())
+            {
+                Reader reader = new Reader();  
+                reader.IdReader = int.Parse(dataReader[0].ToString());
+                reader.FirstName = dataReader[1].ToString();
+                reader.LastName = dataReader[2].ToString();
+                reader.MiddleName = dataReader[3].ToString();
+                reader.BirthDate = dataReader[4].ToString();
+                reader.PassportSerial = int.Parse(dataReader[5].ToString());
+                reader.PassportNumber = int.Parse(dataReader[6].ToString());
+                reader.Address = dataReader[7].ToString();
+                reader.PhoneNumber = dataReader[8].ToString();
+                readers.Add(reader);
+            }
+            dataReader.Close();
+            con.Close();
+            return readers;
+
         }
     }
 }
