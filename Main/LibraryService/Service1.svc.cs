@@ -13,7 +13,7 @@ namespace LibraryService
             return string.Format("You entered: {0}", value);
         }
 
-        static string connectionString = Settings.Default.SvyatCon;
+        static string connectionString = Settings.Default.ElyaCon;
 
         public void AddNewReader(string[] newReaderArray)
         {
@@ -79,6 +79,7 @@ namespace LibraryService
 
             return dateEnd.ToString();
         }
+
         public List<Reader> GetAllReaders()
         {
             List<Reader> readers = new List<Reader>();
@@ -108,7 +109,7 @@ namespace LibraryService
 
         }
 
-        //public static Book[] writeOffBooks;
+        public static List<string> writedOffBooks = new List<string>();
 
         public Book[] GetWriteOffBooks()
         {
@@ -119,11 +120,28 @@ namespace LibraryService
             return books;
         }
 
-        public Book[] GetReplenishBooks()
+        public List<Book> GetReplenishBooks()
         {
             BookRepository bookRepository = new BookRepository();
             var books = bookRepository.ReplenishBooks();
 
+            SqlConnection con = new SqlConnection(connectionString);
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            for (int i = 0; i < writedOffBooks.Count; i++)
+            {
+                cmd.CommandText = "Select NameBook From Books Where NameBook = '" + writedOffBooks[i] + "';";
+
+                if ((string)cmd.ExecuteScalar() == null)
+                {
+                    Book newBook = new Book();
+                    newBook.NameBook = writedOffBooks[i];
+                    newBook.CountPhonetic = 0;
+                    books.Add(newBook);
+                }                                     
+            }                             
+            
             return books;
         }
 
@@ -133,13 +151,18 @@ namespace LibraryService
             con.Open();
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
+
+            SqlCommand newCom = con.CreateCommand();
+            newCom.CommandType = CommandType.Text;
+            //newCom.CommandText = "Select"
             for (int i = 0; i < writeOffBooks.Length; i++)
             {
-                cmd.CommandText = "Update Books Set Status = 'Списана' Where idBook = '" + writeOffBooks[i] + "';";
-                    //cmd.CommandText = "Delete From Books Where idBook = '" + writeOffBooks[i] + "';";
-                    cmd.ExecuteNonQuery();
+                newCom.CommandText = "Select NameBook From Books Where idBook = '" + writeOffBooks[i] + "';";
                 
-                    
+                writedOffBooks.Add((string)newCom.ExecuteScalar());
+                //cmd.CommandText = "Update Books Set Status = 'Списана' Where idBook = '" + writeOffBooks[i] + "';";
+                cmd.CommandText = "Delete From Books Where idBook = '" + writeOffBooks[i] + "';";
+                cmd.ExecuteNonQuery();                 
             }      
             con.Close();
         }
