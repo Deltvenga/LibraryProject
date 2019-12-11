@@ -38,6 +38,9 @@ namespace LibraryService
         Book[] GetReplenishBooks();
 
         [OperationContract]
-        void DeleteWriteOffBooks();
+        void DeleteWriteOffBooks(int[] arr);
+
+        [OperationContract]
+        void AddNewBook(Book newBook);
     }
 }
