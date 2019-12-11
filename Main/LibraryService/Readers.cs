@@ -14,8 +14,7 @@ namespace LibraryService
     [DataContract]
     public class Readers
     {
-        static string connectionString = Settings.Default.SvyatCon;
-       
+        static string connectionString = Settings.Default.ElyaCon;     
 
         public Readers()
         {

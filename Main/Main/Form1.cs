@@ -139,7 +139,7 @@ namespace Main
 
         private void button6_Click(object sender, EventArgs e)
         {
-            var d = new ServiceReference1.Service1Client();
+            var d = new ServiceReference1.Service1Client();          
             var data = d.GetReplenishBooks();
 
             dataGridView4.Rows.Clear();
@@ -158,7 +158,6 @@ namespace Main
 
             foreach (DataGridViewRow row in dataGridView3.Rows)
             {
-
                 if ((bool)row.Cells[0].Value)
                 {
                     booksToDelete.Add(int.Parse(row.Cells[1].Value.ToString()));
