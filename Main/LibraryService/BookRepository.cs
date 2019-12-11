@@ -13,7 +13,7 @@ namespace LibraryService
     [DataContract]
     public class BookRepository
     {
-        static string connectionString = Settings.Default.ElyaCon;
+        static string connectionString = Settings.Default.SvyatCon;
 
         [DataMember]
         List<Book> _listBooks = new List<Book>();
@@ -108,7 +108,7 @@ namespace LibraryService
             con.Open();
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "Select * From Books Where Disrepair = 1";
+            cmd.CommandText = "Select * From Books Where Disrepair = 1 and Status <> 'Выдана' and Status <> 'Списана'";
 
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -127,7 +127,7 @@ namespace LibraryService
 
             return list.ToArray();
         }
-
+        const int MIN_BOOKS_COUNT = 3; // минимальное количество книг
         [OperationContract]
         public Book[] ReplenishBooks()
         {
@@ -149,10 +149,25 @@ namespace LibraryService
                 Book books = new Book();
                 books.NameBook = dtreader["NameBook"].ToString();
                 books.CountPhonetic = int.Parse(dtreader["Kol"].ToString());
+                //books.Disrepair = int.Parse(dtreader["Disrepair"].ToString());
+                if (books.CountPhonetic < 3)
                 list.Add(books);
             }
 
             return list.ToArray();
+        }
+        public void AddNewBook(Book newBook)
+        {
+            string query = "Insert into [Books] values('" + newBook.NameBook + "'," + newBook.Year + "," +
+                "'" + newBook.Publish + "'," +
+                "'" + newBook.PublishCountry + "'," + newBook.PageCount + "," +
+                "'" + newBook.Language + "',0," + newBook.Disrepair + ",null)";
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand command = new SqlCommand(query, con);
+            con.Open();
+            command.ExecuteNonQuery();
+            con.Close();
+            
         }
     }
 }

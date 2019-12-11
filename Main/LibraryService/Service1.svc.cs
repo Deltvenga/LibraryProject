@@ -13,7 +13,7 @@ namespace LibraryService
             return string.Format("You entered: {0}", value);
         }
 
-        static string connectionString = Settings.Default.ElyaCon;
+        static string connectionString = Settings.Default.SvyatCon;
 
         public void AddNewReader(string[] newReaderArray)
         {
@@ -108,13 +108,13 @@ namespace LibraryService
 
         }
 
-        public static Book[] writeOffBooks;
+        //public static Book[] writeOffBooks;
 
         public Book[] GetWriteOffBooks()
         {
             BookRepository bookRepository = new BookRepository();
             var books = bookRepository.GetWriteOffBooks();
-            writeOffBooks = books;
+            //writeOffBooks = books;
 
             return books;
         }
@@ -127,7 +127,7 @@ namespace LibraryService
             return books;
         }
 
-        public void DeleteWriteOffBooks()
+        public void DeleteWriteOffBooks(int[] writeOffBooks)
         {
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();
@@ -135,15 +135,21 @@ namespace LibraryService
             cmd.CommandType = CommandType.Text;
             for (int i = 0; i < writeOffBooks.Length; i++)
             {
-                if (writeOffBooks[i].Status != "Выдана")
-                {
-                    cmd.CommandText = "Delete From Books Where idBook = '" + writeOffBooks[i].IdBook + "';";
+                cmd.CommandText = "Update Books Set Status = 'Списана' Where idBook = '" + writeOffBooks[i] + "';";
+                    //cmd.CommandText = "Delete From Books Where idBook = '" + writeOffBooks[i] + "';";
                     cmd.ExecuteNonQuery();
-                }
+                
                     
-            }
-            
+            }      
             con.Close();
         }
+        public void AddNewBook(Book newBook)
+        {
+            BookRepository bookRepository = new BookRepository();
+            bookRepository.AddNewBook(newBook);
+        }
+
+        
+        
     }
 }

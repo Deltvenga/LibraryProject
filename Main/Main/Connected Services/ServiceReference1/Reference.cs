@@ -64,10 +64,16 @@ namespace Main.ServiceReference1 {
         System.Threading.Tasks.Task<LibraryService.Book[]> GetReplenishBooksAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeleteWriteOffBooks", ReplyAction="http://tempuri.org/IService1/DeleteWriteOffBooksResponse")]
-        void DeleteWriteOffBooks();
+        void DeleteWriteOffBooks(int[] arr);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeleteWriteOffBooks", ReplyAction="http://tempuri.org/IService1/DeleteWriteOffBooksResponse")]
-        System.Threading.Tasks.Task DeleteWriteOffBooksAsync();
+        System.Threading.Tasks.Task DeleteWriteOffBooksAsync(int[] arr);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddNewBook", ReplyAction="http://tempuri.org/IService1/AddNewBookResponse")]
+        void AddNewBook(LibraryService.Book newBook);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddNewBook", ReplyAction="http://tempuri.org/IService1/AddNewBookResponse")]
+        System.Threading.Tasks.Task AddNewBookAsync(LibraryService.Book newBook);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -161,12 +167,20 @@ namespace Main.ServiceReference1 {
             return base.Channel.GetReplenishBooksAsync();
         }
         
-        public void DeleteWriteOffBooks() {
-            base.Channel.DeleteWriteOffBooks();
+        public void DeleteWriteOffBooks(int[] arr) {
+            base.Channel.DeleteWriteOffBooks(arr);
         }
         
-        public System.Threading.Tasks.Task DeleteWriteOffBooksAsync() {
-            return base.Channel.DeleteWriteOffBooksAsync();
+        public System.Threading.Tasks.Task DeleteWriteOffBooksAsync(int[] arr) {
+            return base.Channel.DeleteWriteOffBooksAsync(arr);
+        }
+        
+        public void AddNewBook(LibraryService.Book newBook) {
+            base.Channel.AddNewBook(newBook);
+        }
+        
+        public System.Threading.Tasks.Task AddNewBookAsync(LibraryService.Book newBook) {
+            return base.Channel.AddNewBookAsync(newBook);
         }
     }
 }

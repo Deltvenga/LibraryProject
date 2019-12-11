@@ -129,11 +129,11 @@ namespace Main
             //var newdata = d.GetReplenishBooks();
 
             dataGridView3.Rows.Clear();
-            dataGridView4.Rows.Clear();
+            //dataGridView4.Rows.Clear();
 
             for (int i = 0; i < data.Length; i++)
             {
-                dataGridView3.Rows.Add(data[i].IdBook, data[i].NameBook, data[i].Year, data[i].Publish, data[i].PublishCountry, data[i].PageCount, data[i].Language, data[i].Captures, data[i].Disrepair, data[i].Status);             
+                dataGridView3.Rows.Add(false, data[i].IdBook, data[i].NameBook, data[i].Year, data[i].Publish, data[i].PublishCountry, data[i].PageCount, data[i].Language, data[i].Captures, data[i].Disrepair, data[i].Status);             
             }         
         }
 
@@ -154,7 +154,74 @@ namespace Main
         private void button7_Click(object sender, EventArgs e)
         {
             var d = new ServiceReference1.Service1Client();
-            d.DeleteWriteOffBooks();
+            List<int> booksToDelete = new List<int>();
+
+            foreach (DataGridViewRow row in dataGridView3.Rows)
+            {
+
+                if ((bool)row.Cells[0].Value)
+                {
+                    booksToDelete.Add(int.Parse(row.Cells[1].Value.ToString()));
+                }
+                
+            }
+            d.DeleteWriteOffBooks(booksToDelete.ToArray());
+            button5_Click(null, null);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView4_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            MessageBox.Show("sw");
+        }
+
+        private void tabPage6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button8_Click_1(object sender, EventArgs e)
+        {
+            var sv = new Service1Client();
+            Book newBook = new Book()
+            {
+                NameBook = richTextBox1.Text,
+                Year = Convert.ToInt32(numericUpDown1.Value),
+                Publish = textBox14.Text,
+                PageCount = Convert.ToInt32(numericUpDown2.Value),
+                PublishCountry = comboBox2.Text,
+                Language = textBox15.Text,
+                Captures=0,
+                Disrepair = Convert.ToInt32(numericUpDown3.Value),
+                Status = null
+            };
+            sv.AddNewBook(newBook);
+        }
+
+        private void fillBookName()
+        {
+            var nameBook = dataGridView4.Rows[dataGridView4.CurrentCell.RowIndex].Cells[0].Value.ToString();
+            richTextBox1.Text = nameBook;
+        }
+
+        private void dataGridView4_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            fillBookName();
+        }
+
+        private void dataGridView4_SelectionChanged(object sender, EventArgs e)
+        {
+            fillBookName();
+        }
+
+        private void dataGridView3_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int index = e.RowIndex;
+
         }
     }
 }
