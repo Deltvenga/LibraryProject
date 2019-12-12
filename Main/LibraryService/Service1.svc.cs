@@ -13,7 +13,7 @@ namespace LibraryService
             return string.Format("You entered: {0}", value);
         }
 
-        static string connectionString = Settings.Default.ElyaCon;
+        static string connectionString = Settings.Default.RomaCon;
 
         public void AddNewReader(string[] newReaderArray)
         {

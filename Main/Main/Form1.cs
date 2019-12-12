@@ -15,6 +15,7 @@ namespace Main
         }
 
         private int currentReaderId;
+
         private void button1_Click(object sender, EventArgs e)
         {
             string[] arr = new string[8];
@@ -75,11 +76,10 @@ namespace Main
                 MessageBox.Show("Книга не выбрана!");
             } else
             {
-                var d = new ServiceReference1.Service1Client();
-                var date = d.AddNewAbonement(int.Parse(textBox6.Text), currentBookId);
+                var d = new Service1Client();
+                var date = d.AddNewAbonement(currentReaderId, currentBookId);
                 MessageBox.Show("Книга " + currentBookName + " выдана, дата возврата: " + date);
             }
-            
         }
 
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -90,11 +90,14 @@ namespace Main
             label13.Text = currentBookName;
         }
 
+        List<ComboboxValues> comboboxSrc;
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
             var sv = new Service1Client();
             var readers = sv.GetAllReaders();
-            List<ComboboxValues> comboboxSrc = new List<ComboboxValues>();
+            comboboxSrc = new List<ComboboxValues>();
             foreach (var reader in readers)
             {
                 comboboxSrc.Add(new ComboboxValues(reader));
@@ -106,8 +109,6 @@ namespace Main
             var genres = sv.GetGenre();
             for (int i = 0; i < genres.Length; i++)
                 comboBox3.Items.Add(genres[i]);
-            //var d = new Service1Client();
-            //var data = d.GetReplenishBooks();
         }
 
         class ComboboxValues
@@ -124,6 +125,11 @@ namespace Main
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            UpdateDG5();
+        }
+        
+        private void UpdateDG5()
+        {
             dataGridView5.Rows.Clear();
             currentReaderId = int.Parse(comboBox1.SelectedValue.ToString());
 
@@ -132,8 +138,7 @@ namespace Main
 
             for (int i = 0; i < abonement.Length; i++)
             {
-                //dataGridView5.Rows.Add(false);
-                dataGridView5.Rows.Add(abonement[i]);              
+                dataGridView5.Rows.Add(abonement[i]);
             }
             var genre = sv.GetGenre();
 
@@ -142,16 +147,16 @@ namespace Main
                 var cb = dataGridView5.Columns[7] as DataGridViewComboBoxColumn;
                 cb.DataSource = genre;
             }
+            textBox6.Text = comboBox1.SelectedValue.ToString();
+
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            var d = new ServiceReference1.Service1Client();
+            var d = new Service1Client();
             var data = d.GetWriteOffBooks();
-            //var newdata = d.GetReplenishBooks();
 
             dataGridView3.Rows.Clear();
-            //dataGridView4.Rows.Clear();
 
             for (int i = 0; i < data.Length; i++)
             {
@@ -161,7 +166,7 @@ namespace Main
 
         private void button6_Click(object sender, EventArgs e)
         {
-            var d = new ServiceReference1.Service1Client();          
+            var d = new Service1Client();          
             var data = d.GetReplenishBooks();
 
             dataGridView4.Rows.Clear();
@@ -198,13 +203,12 @@ namespace Main
 
         private void dataGridView4_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            MessageBox.Show("sw");
+
         }
 
         private void tabPage6_Click(object sender, EventArgs e)
         {
-            //var d = new Service1Client();
-            //var data = d.GetReplenishBooks();           
+         
         }
 
         private void button8_Click_1(object sender, EventArgs e)
@@ -243,8 +247,6 @@ namespace Main
 
         private void dataGridView3_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            int index = e.RowIndex;
-
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -264,12 +266,33 @@ namespace Main
                 }
             }
             d.ReturnBooks(abonId.ToArray(), booksId.ToArray(), genre.ToArray());
-            //comboBox1_SelectedIndexChanged(null, null);
+            UpdateDG5();
         }
 
         private void tabPage3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBox6_KeyUp(object sender, KeyEventArgs e)
+        {
+            var txt = textBox6.Text;
+            if(txt.Length > 0)
+            {
+                foreach (var item in comboboxSrc)
+                {
+                    int tempId;
+                    if(int.TryParse(txt, out tempId))
+                    {
+                        if (item.id == tempId)
+                        {
+                            comboBox1.SelectedValue = item.id;
+                        }
+                    }
+                    
+                }
+            }
+            
         }
     }
 }

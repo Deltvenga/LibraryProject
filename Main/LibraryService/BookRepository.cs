@@ -13,7 +13,7 @@ namespace LibraryService
     [DataContract]
     public class BookRepository
     {
-        static string connectionString = Settings.Default.ElyaCon;
+        static string connectionString = Settings.Default.RomaCon;
 
         [DataMember]
         List<Book> _listBooks = new List<Book>();
