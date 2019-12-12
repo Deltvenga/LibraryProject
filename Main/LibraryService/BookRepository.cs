@@ -55,7 +55,6 @@ namespace LibraryService
             return book;
         }
 
-
         [OperationContract]
         public Book[] FindBooks(string searchString)
         {
@@ -114,7 +113,6 @@ namespace LibraryService
             DataTable dt = new DataTable();
             da.Fill(dt);
 
-
             List<Book> list = new List<Book>();
             DataTableReader dtreader = dt.CreateDataReader();
 
@@ -127,6 +125,7 @@ namespace LibraryService
 
             return list.ToArray();
         }
+
         const int MIN_BOOKS_COUNT = 3; // минимальное количество книг
 
         [OperationContract]
@@ -134,6 +133,11 @@ namespace LibraryService
         {
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();
+            SqlCommand precmd = con.CreateCommand();
+            precmd.CommandType = CommandType.Text;
+            precmd.CommandText = "Truncate Table ReplenishBooks;";
+            precmd.ExecuteNonQuery();
+
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "Select NameBook, Count(NameBook) as Kol From Books Where NameBook = NameBook Group By NameBook;";
@@ -150,13 +154,87 @@ namespace LibraryService
                 Book books = new Book();
                 books.NameBook = dtreader["NameBook"].ToString();
                 books.CountPhonetic = int.Parse(dtreader["Kol"].ToString());
-                //books.Disrepair = int.Parse(dtreader["Disrepair"].ToString());
+
                 if (books.CountPhonetic < 3)
-                list.Add(books);
+                {                  
+                    SqlCommand command = con.CreateCommand();
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = "Insert into ReplenishBooks Values('" + books.NameBook + "', '" + books.CountPhonetic + "');";
+                    command.ExecuteNonQuery();                 
+                }
+
+                //SqlCommand checkReplenish = con.CreateCommand();
+                //checkReplenish.CommandType = CommandType.Text;
+                //checkReplenish.CommandText = "Select ReplenishBooks.NameBook, ReplenishBooks.CountBooks From ReplenishBooks, WritedOffBooks Where ReplenishBooks.NameBook = WritedOffBooks.NameBook;";
+                //SqlDataAdapter nda = new SqlDataAdapter(checkReplenish);
+                //DataTable tdt = new DataTable();
+                //nda.Fill(tdt);     
+                //DataTableReader ndtreader = tdt.CreateDataReader();
+
+                //while (ndtreader.Read())
+                //{
+                //    Book nbooks = new Book();
+                //    nbooks.NameBook = ndtreader["NameBook"].ToString();
+                //    nbooks.CountPhonetic = int.Parse(ndtreader["CountBooks"].ToString());
+                //    if (nbooks.CountPhonetic < 3)
+                //    {
+                //        SqlCommand command = con.CreateCommand();
+                //        command.CommandType = CommandType.Text;
+                //        command.CommandText = "Update ReplenishBooks Set CountBooks = CountBooks + 1 Where NameBook = '" + nbooks.NameBook + "';";
+                //        command.ExecuteNonQuery();
+                //    }
+                //}
+           
             }
+
+            SqlCommand writedBooks = con.CreateCommand();
+            writedBooks.CommandType = CommandType.Text;
+            writedBooks.CommandText = "Select NameBook From WritedOffBooks";
+            SqlDataAdapter dataAdapter = new SqlDataAdapter(writedBooks);
+            DataTable dataTable = new DataTable();
+            dataAdapter.Fill(dataTable);
+            DataTableReader dataTableReader = dataTable.CreateDataReader();
+
+            while (dataTableReader.Read())
+            {
+                Book nbooks = new Book();
+                nbooks.NameBook = dataTableReader["NameBook"].ToString();
+
+                SqlCommand check = con.CreateCommand();
+                check.CommandType = CommandType.Text;
+                check.CommandText = "Select Count(NameBook) From ReplenishBooks Where NameBook = '" + nbooks.NameBook + "';";
+                if ((int)check.ExecuteScalar() == 0)
+                {
+                    SqlCommand insert = con.CreateCommand();
+                    insert.CommandType = CommandType.Text;
+                    insert.CommandText = "Insert into ReplenishBooks Values ('" + nbooks.NameBook + "', 0);";
+                    insert.ExecuteNonQuery();
+                }
+            }
+
+            SqlCommand cmdReplenish = con.CreateCommand();
+            cmdReplenish.CommandType = CommandType.Text;
+            cmdReplenish.CommandText = "Select * From ReplenishBooks";
+
+            SqlDataAdapter sda = new SqlDataAdapter(cmdReplenish);
+            DataTable datat = new DataTable();
+            sda.Fill(datat);
+
+            List<Book> replenishList = new List<Book>();
+            DataTableReader DTreader = datat.CreateDataReader();
+
+            while (DTreader.Read())
+            {
+                Book books = new Book();
+                books.NameBook = DTreader["NameBook"].ToString();
+                books.CountPhonetic = int.Parse(DTreader["CountBooks"].ToString());
+                replenishList.Add(books);             
+            }
+
             con.Close();
-            return list;
+            return replenishList;
         }
+
         public void AddNewBook(Book newBook)
         {
             string query = "Insert into [Books] values('" + newBook.NameBook + "'," + newBook.Year + "," +

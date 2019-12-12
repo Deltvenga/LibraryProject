@@ -64,10 +64,10 @@ namespace Main.ServiceReference1 {
         System.Threading.Tasks.Task<LibraryService.Book[]> GetReplenishBooksAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeleteWriteOffBooks", ReplyAction="http://tempuri.org/IService1/DeleteWriteOffBooksResponse")]
-        void DeleteWriteOffBooks(int[] arr);
+        void DeleteWriteOffBooks(int[] arr, string[] name);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeleteWriteOffBooks", ReplyAction="http://tempuri.org/IService1/DeleteWriteOffBooksResponse")]
-        System.Threading.Tasks.Task DeleteWriteOffBooksAsync(int[] arr);
+        System.Threading.Tasks.Task DeleteWriteOffBooksAsync(int[] arr, string[] name);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddNewBook", ReplyAction="http://tempuri.org/IService1/AddNewBookResponse")]
         void AddNewBook(LibraryService.Book newBook);
@@ -167,12 +167,12 @@ namespace Main.ServiceReference1 {
             return base.Channel.GetReplenishBooksAsync();
         }
         
-        public void DeleteWriteOffBooks(int[] arr) {
-            base.Channel.DeleteWriteOffBooks(arr);
+        public void DeleteWriteOffBooks(int[] arr, string[] name) {
+            base.Channel.DeleteWriteOffBooks(arr, name);
         }
         
-        public System.Threading.Tasks.Task DeleteWriteOffBooksAsync(int[] arr) {
-            return base.Channel.DeleteWriteOffBooksAsync(arr);
+        public System.Threading.Tasks.Task DeleteWriteOffBooksAsync(int[] arr, string[] name) {
+            return base.Channel.DeleteWriteOffBooksAsync(arr, name);
         }
         
         public void AddNewBook(LibraryService.Book newBook) {

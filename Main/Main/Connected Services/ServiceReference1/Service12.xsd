@@ -110,6 +110,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="arr" nillable="true" type="q7:ArrayOfint" />
+        <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="name" nillable="true" type="q8:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -121,7 +122,7 @@
   <xs:element name="AddNewBook">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/LibraryService" minOccurs="0" name="newBook" nillable="true" type="q8:Book" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/LibraryService" minOccurs="0" name="newBook" nillable="true" type="q9:Book" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
