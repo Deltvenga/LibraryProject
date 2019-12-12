@@ -77,6 +77,10 @@ namespace LibraryService
             cmd.CommandText = "Insert into Abonement Values('" + idReader + "','" + idBook + "','" + dateNow + "','" + dateEnd + "', NULL);";
             cmd.ExecuteNonQuery();
 
+            SqlCommand cmdBooks = con.CreateCommand();
+            cmdBooks.CommandType = CommandType.Text;
+            cmdBooks.CommandText = "Update Books Set Status = 'Выдана' Where idBook ='" + idBook +"';";
+            cmdBooks.ExecuteNonQuery();
             return dateEnd.ToString();
         }
 
@@ -157,5 +161,83 @@ namespace LibraryService
             BookRepository bookRepository = new BookRepository();
             bookRepository.AddNewBook(newBook);
         }     
+
+        public List<List<string>> GetAbonement(int id)
+        {
+            SqlConnection con = new SqlConnection(connectionString);
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "Select Abonement.id, Books.idBook, Books.NameBook, Abonement.DataBegin, Abonement.DataEnd, Abonement.DataFactEnd From Abonement Inner join Readers on Abonement.idReader = Readers.idReader inner join Books on Abonement.idBook = Books.idBook Where Abonement.idReader = '" + id + "' and Abonement.DataFactEnd is null;";
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            List<List<string>> list = new List<List<string>>();
+            DataTableReader dtreader = dt.CreateDataReader();
+
+            while (dtreader.Read())
+            {
+                List<string> rows = new List<string>();
+                rows.Add(dtreader["id"].ToString());
+                //rows.Add(dtreader["firstName"].ToString() + " " + dtreader["lastName"].ToString() + " " + dtreader["middleName"].ToString());
+                rows.Add(dtreader["idBook"].ToString());
+                rows.Add(dtreader["NameBook"].ToString());
+                rows.Add(dtreader["DataBegin"].ToString());
+                rows.Add(dtreader["DataEnd"].ToString());
+                rows.Add(dtreader["DataFactEnd"].ToString());
+                list.Add(rows);
+            }
+
+            con.Close();
+            return list;
+        }
+
+        public void ReturnBooks(int[] id, int[] idBook, string[] genre)
+        {
+            var day = DateTime.Now.Day;
+            var month = DateTime.Now.Month;
+            var year = DateTime.Now.Year;
+
+            var dateNow = (year + "-" + month + "-" + day).ToString();
+
+            SqlConnection con = new SqlConnection(connectionString);
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            for (int i = 0; i < id.Length; i++)
+            {
+                cmd.CommandText = "Update Abonement Set DataFactEnd = '" + dateNow + "' Where id = '" + id[i] + "';";
+                cmd.ExecuteNonQuery();
+                
+                SqlCommand changeStatus = con.CreateCommand();
+                changeStatus.CommandType = CommandType.Text;
+                changeStatus.CommandText = "Update Books Set Status = '" + genre[i] + "' Where idBook = '" + idBook[i] + "';";
+                changeStatus.ExecuteNonQuery();
+            }
+            con.Close();
+        }
+
+        public List<string> GetGenre()
+        {
+            SqlConnection con = new SqlConnection(connectionString);
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "Select Genre From [Genre]";
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            List<string> list = new List<string>();
+            DataTableReader dtreader = dt.CreateDataReader();
+            while (dtreader.Read())
+            {
+                list.Add(dtreader["Genre"].ToString());
+            }
+            con.Close();
+            return list;
+        }
     }
 }

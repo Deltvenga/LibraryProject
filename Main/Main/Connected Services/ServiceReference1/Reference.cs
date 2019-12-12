@@ -74,6 +74,24 @@ namespace Main.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddNewBook", ReplyAction="http://tempuri.org/IService1/AddNewBookResponse")]
         System.Threading.Tasks.Task AddNewBookAsync(LibraryService.Book newBook);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAbonement", ReplyAction="http://tempuri.org/IService1/GetAbonementResponse")]
+        string[][] GetAbonement(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAbonement", ReplyAction="http://tempuri.org/IService1/GetAbonementResponse")]
+        System.Threading.Tasks.Task<string[][]> GetAbonementAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ReturnBooks", ReplyAction="http://tempuri.org/IService1/ReturnBooksResponse")]
+        void ReturnBooks(int[] id, int[] idBook, string[] genre);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ReturnBooks", ReplyAction="http://tempuri.org/IService1/ReturnBooksResponse")]
+        System.Threading.Tasks.Task ReturnBooksAsync(int[] id, int[] idBook, string[] genre);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetGenre", ReplyAction="http://tempuri.org/IService1/GetGenreResponse")]
+        string[] GetGenre();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetGenre", ReplyAction="http://tempuri.org/IService1/GetGenreResponse")]
+        System.Threading.Tasks.Task<string[]> GetGenreAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -181,6 +199,30 @@ namespace Main.ServiceReference1 {
         
         public System.Threading.Tasks.Task AddNewBookAsync(LibraryService.Book newBook) {
             return base.Channel.AddNewBookAsync(newBook);
+        }
+        
+        public string[][] GetAbonement(int id) {
+            return base.Channel.GetAbonement(id);
+        }
+        
+        public System.Threading.Tasks.Task<string[][]> GetAbonementAsync(int id) {
+            return base.Channel.GetAbonementAsync(id);
+        }
+        
+        public void ReturnBooks(int[] id, int[] idBook, string[] genre) {
+            base.Channel.ReturnBooks(id, idBook, genre);
+        }
+        
+        public System.Threading.Tasks.Task ReturnBooksAsync(int[] id, int[] idBook, string[] genre) {
+            return base.Channel.ReturnBooksAsync(id, idBook, genre);
+        }
+        
+        public string[] GetGenre() {
+            return base.Channel.GetGenre();
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GetGenreAsync() {
+            return base.Channel.GetGenreAsync();
         }
     }
 }

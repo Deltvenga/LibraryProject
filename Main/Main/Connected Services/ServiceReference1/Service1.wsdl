@@ -69,6 +69,24 @@
   <wsdl:message name="IService1_AddNewBook_OutputMessage">
     <wsdl:part name="parameters" element="tns:AddNewBookResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_GetAbonement_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAbonement" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAbonement_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAbonementResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ReturnBooks_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReturnBooks" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ReturnBooks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReturnBooksResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetGenre_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGenre" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetGenre_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGenreResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="GetData">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetData" message="tns:IService1_GetData_InputMessage" />
@@ -109,6 +127,18 @@
     <wsdl:operation name="AddNewBook">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddNewBook" message="tns:IService1_AddNewBook_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddNewBookResponse" message="tns:IService1_AddNewBook_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAbonement">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAbonement" message="tns:IService1_GetAbonement_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAbonementResponse" message="tns:IService1_GetAbonement_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReturnBooks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/ReturnBooks" message="tns:IService1_ReturnBooks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ReturnBooksResponse" message="tns:IService1_ReturnBooks_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGenre">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetGenre" message="tns:IService1_GetGenre_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetGenreResponse" message="tns:IService1_GetGenre_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -196,6 +226,33 @@
     </wsdl:operation>
     <wsdl:operation name="AddNewBook">
       <soap:operation soapAction="http://tempuri.org/IService1/AddNewBook" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAbonement">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetAbonement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReturnBooks">
+      <soap:operation soapAction="http://tempuri.org/IService1/ReturnBooks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGenre">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetGenre" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

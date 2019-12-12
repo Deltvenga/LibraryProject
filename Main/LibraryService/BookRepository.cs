@@ -161,30 +161,7 @@ namespace LibraryService
                     command.CommandType = CommandType.Text;
                     command.CommandText = "Insert into ReplenishBooks Values('" + books.NameBook + "', '" + books.CountPhonetic + "');";
                     command.ExecuteNonQuery();                 
-                }
-
-                //SqlCommand checkReplenish = con.CreateCommand();
-                //checkReplenish.CommandType = CommandType.Text;
-                //checkReplenish.CommandText = "Select ReplenishBooks.NameBook, ReplenishBooks.CountBooks From ReplenishBooks, WritedOffBooks Where ReplenishBooks.NameBook = WritedOffBooks.NameBook;";
-                //SqlDataAdapter nda = new SqlDataAdapter(checkReplenish);
-                //DataTable tdt = new DataTable();
-                //nda.Fill(tdt);     
-                //DataTableReader ndtreader = tdt.CreateDataReader();
-
-                //while (ndtreader.Read())
-                //{
-                //    Book nbooks = new Book();
-                //    nbooks.NameBook = ndtreader["NameBook"].ToString();
-                //    nbooks.CountPhonetic = int.Parse(ndtreader["CountBooks"].ToString());
-                //    if (nbooks.CountPhonetic < 3)
-                //    {
-                //        SqlCommand command = con.CreateCommand();
-                //        command.CommandType = CommandType.Text;
-                //        command.CommandText = "Update ReplenishBooks Set CountBooks = CountBooks + 1 Where NameBook = '" + nbooks.NameBook + "';";
-                //        command.ExecuteNonQuery();
-                //    }
-                //}
-           
+                }              
             }
 
             SqlCommand writedBooks = con.CreateCommand();
