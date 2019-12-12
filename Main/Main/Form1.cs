@@ -103,6 +103,9 @@ namespace Main
             comboBox1.ValueMember = "id";
             comboBox1.DataSource = comboboxSrc;
 
+            var genres = sv.GetGenre();
+            for (int i = 0; i < genres.Length; i++)
+                comboBox3.Items.Add(genres[i]);
             //var d = new Service1Client();
             //var data = d.GetReplenishBooks();
         }
@@ -121,7 +124,24 @@ namespace Main
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            dataGridView5.Rows.Clear();
             currentReaderId = int.Parse(comboBox1.SelectedValue.ToString());
+
+            var sv = new Service1Client();
+            var abonement = sv.GetAbonement(currentReaderId);
+
+            for (int i = 0; i < abonement.Length; i++)
+            {
+                //dataGridView5.Rows.Add(false);
+                dataGridView5.Rows.Add(abonement[i]);              
+            }
+            var genre = sv.GetGenre();
+
+            for (int i = 0; i < dataGridView5.RowCount; i++)
+            {
+                var cb = dataGridView5.Columns[7] as DataGridViewComboBoxColumn;
+                cb.DataSource = genre;
+            }
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -198,9 +218,9 @@ namespace Main
                 PageCount = Convert.ToInt32(numericUpDown2.Value),
                 PublishCountry = comboBox2.Text,
                 Language = textBox15.Text,
-                Captures=0,
+                Captures = 0,
                 Disrepair = Convert.ToInt32(numericUpDown3.Value),
-                Status = null
+                Status = comboBox3.Text.ToString()
             };
             sv.AddNewBook(newBook);
         }
@@ -224,6 +244,31 @@ namespace Main
         private void dataGridView3_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int index = e.RowIndex;
+
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            var d = new Service1Client();
+            List<int> abonId = new List<int>();
+            List<int> booksId = new List<int>();
+            List<string> genre = new List<string>();
+
+            foreach (DataGridViewRow row in dataGridView5.Rows)
+            {
+                if ((bool)row.Cells[6].Value)
+                {
+                    abonId.Add(int.Parse(row.Cells[0].Value.ToString()));
+                    booksId.Add(int.Parse(row.Cells[1].Value.ToString()));
+                    genre.Add(row.Cells[7].Value.ToString());
+                }
+            }
+            d.ReturnBooks(abonId.ToArray(), booksId.ToArray(), genre.ToArray());
+            //comboBox1_SelectedIndexChanged(null, null);
+        }
+
+        private void tabPage3_Click(object sender, EventArgs e)
+        {
 
         }
     }

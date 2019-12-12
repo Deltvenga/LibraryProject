@@ -42,5 +42,14 @@ namespace LibraryService
 
         [OperationContract]
         void AddNewBook(Book newBook);
+
+        [OperationContract]
+        List<List<string>> GetAbonement(int id);
+
+        [OperationContract]
+        void ReturnBooks(int[] id, int[] idBook, string[] genre);
+
+        [OperationContract]
+        List<string> GetGenre();
     }
 }
