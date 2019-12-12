@@ -109,70 +109,53 @@ namespace LibraryService
 
         }
 
-        public static List<string> writedOffBooks = new List<string>();
+        //public static List<string> writedOffBooks = new List<string>();
 
         public Book[] GetWriteOffBooks()
         {
             BookRepository bookRepository = new BookRepository();
-            var books = bookRepository.GetWriteOffBooks();
-            //writeOffBooks = books;
-
+            var books = bookRepository.GetWriteOffBooks();          
             return books;
         }
 
         public List<Book> GetReplenishBooks()
         {
             BookRepository bookRepository = new BookRepository();
-            var books = bookRepository.ReplenishBooks();
-
-            SqlConnection con = new SqlConnection(connectionString);
-            con.Open();
-            SqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.Text;
-            for (int i = 0; i < writedOffBooks.Count; i++)
-            {
-                cmd.CommandText = "Select NameBook From Books Where NameBook = '" + writedOffBooks[i] + "';";
-
-                if ((string)cmd.ExecuteScalar() == null)
-                {
-                    Book newBook = new Book();
-                    newBook.NameBook = writedOffBooks[i];
-                    newBook.CountPhonetic = 0;
-                    books.Add(newBook);
-                }                                     
-            }                             
-            
+            var books = bookRepository.ReplenishBooks();   
             return books;
         }
 
-        public void DeleteWriteOffBooks(int[] writeOffBooks)
+        public void DeleteWriteOffBooks(int[] writeOffBooks, string[] name)
         {
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
-
-            SqlCommand newCom = con.CreateCommand();
-            newCom.CommandType = CommandType.Text;
-            //newCom.CommandText = "Select"
+           
             for (int i = 0; i < writeOffBooks.Length; i++)
             {
-                newCom.CommandText = "Select NameBook From Books Where idBook = '" + writeOffBooks[i] + "';";
-                
-                writedOffBooks.Add((string)newCom.ExecuteScalar());
-                //cmd.CommandText = "Update Books Set Status = 'Списана' Where idBook = '" + writeOffBooks[i] + "';";
+                SqlCommand sqlCommand = con.CreateCommand();
+                sqlCommand.CommandType = CommandType.Text;
+                sqlCommand.CommandText = "Select Count(NameBook) From Books Where NameBook = '" + name[i] + "';";
+                if ((int)sqlCommand.ExecuteScalar() < 3)
+                {
+                    SqlCommand command = con.CreateCommand();
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = "Insert into WritedOffBooks Values ('" + name[i] + "');";
+                    command.ExecuteNonQuery();
+                }
+
                 cmd.CommandText = "Delete From Books Where idBook = '" + writeOffBooks[i] + "';";
-                cmd.ExecuteNonQuery();                 
+                cmd.ExecuteNonQuery();                                              
             }      
+
             con.Close();
         }
+
         public void AddNewBook(Book newBook)
         {
             BookRepository bookRepository = new BookRepository();
             bookRepository.AddNewBook(newBook);
-        }
-
-        
-        
+        }     
     }
 }

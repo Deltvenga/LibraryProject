@@ -38,7 +38,7 @@ namespace LibraryService
         List<Book> GetReplenishBooks();
 
         [OperationContract]
-        void DeleteWriteOffBooks(int[] arr);
+        void DeleteWriteOffBooks(int[] arr, string[] name);
 
         [OperationContract]
         void AddNewBook(Book newBook);

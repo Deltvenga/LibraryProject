@@ -102,7 +102,9 @@ namespace Main
             comboBox1.DisplayMember = "fio";
             comboBox1.ValueMember = "id";
             comboBox1.DataSource = comboboxSrc;
-            
+
+            //var d = new Service1Client();
+            //var data = d.GetReplenishBooks();
         }
 
         class ComboboxValues
@@ -153,18 +155,19 @@ namespace Main
 
         private void button7_Click(object sender, EventArgs e)
         {
-            var d = new ServiceReference1.Service1Client();
+            var d = new Service1Client();
             List<int> booksToDelete = new List<int>();
+            List<string> nameBook = new List<string>();
 
             foreach (DataGridViewRow row in dataGridView3.Rows)
             {
                 if ((bool)row.Cells[0].Value)
                 {
                     booksToDelete.Add(int.Parse(row.Cells[1].Value.ToString()));
-                }
-                
+                    nameBook.Add(row.Cells[2].Value.ToString());
+                }               
             }
-            d.DeleteWriteOffBooks(booksToDelete.ToArray());
+            d.DeleteWriteOffBooks(booksToDelete.ToArray(), nameBook.ToArray());
             button5_Click(null, null);
         }
 
@@ -180,7 +183,8 @@ namespace Main
 
         private void tabPage6_Click(object sender, EventArgs e)
         {
-
+            //var d = new Service1Client();
+            //var data = d.GetReplenishBooks();           
         }
 
         private void button8_Click_1(object sender, EventArgs e)
