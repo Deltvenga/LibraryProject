@@ -8,7 +8,7 @@ namespace LibraryService
 {   
     public class Service1 : IService1
     {
-        static string connectionString = Settings.Default.RomaCon;
+        static string connectionString = Settings.Default.ElyaCon;
 
         public string AddNewReader(string[] newReaderArray)
         {
