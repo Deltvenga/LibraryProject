@@ -82,10 +82,10 @@ namespace Main.ServiceReference1 {
         System.Threading.Tasks.Task<string[][]> GetAbonementAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ReturnBooks", ReplyAction="http://tempuri.org/IService1/ReturnBooksResponse")]
-        void ReturnBooks(int[] id, int[] idBook, string[] genre);
+        void ReturnBooks(int[] id, int[] idBook, string[] genre, int[] disrepair);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ReturnBooks", ReplyAction="http://tempuri.org/IService1/ReturnBooksResponse")]
-        System.Threading.Tasks.Task ReturnBooksAsync(int[] id, int[] idBook, string[] genre);
+        System.Threading.Tasks.Task ReturnBooksAsync(int[] id, int[] idBook, string[] genre, int[] disrepair);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetGenre", ReplyAction="http://tempuri.org/IService1/GetGenreResponse")]
         string[] GetGenre();
@@ -209,12 +209,12 @@ namespace Main.ServiceReference1 {
             return base.Channel.GetAbonementAsync(id);
         }
         
-        public void ReturnBooks(int[] id, int[] idBook, string[] genre) {
-            base.Channel.ReturnBooks(id, idBook, genre);
+        public void ReturnBooks(int[] id, int[] idBook, string[] genre, int[] disrepair) {
+            base.Channel.ReturnBooks(id, idBook, genre, disrepair);
         }
         
-        public System.Threading.Tasks.Task ReturnBooksAsync(int[] id, int[] idBook, string[] genre) {
-            return base.Channel.ReturnBooksAsync(id, idBook, genre);
+        public System.Threading.Tasks.Task ReturnBooksAsync(int[] id, int[] idBook, string[] genre, int[] disrepair) {
+            return base.Channel.ReturnBooksAsync(id, idBook, genre, disrepair);
         }
         
         public string[] GetGenre() {
