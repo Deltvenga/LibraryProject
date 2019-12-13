@@ -260,7 +260,7 @@ namespace Main
 
             foreach (DataGridViewRow row in dataGridView5.Rows)
             {
-                if ((bool)row.Cells[6].Value)
+                if (row.Cells[6].Value != null && (bool)row.Cells[6].Value)
                 {
                     abonId.Add(int.Parse(row.Cells[0].Value.ToString()));
                     booksId.Add(int.Parse(row.Cells[1].Value.ToString()));
