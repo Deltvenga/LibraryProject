@@ -21,7 +21,6 @@ namespace Main
         private string currentBookName;
         List<ComboboxValues> comboboxSrc;
 
-
         private void Form1_Load(object sender, EventArgs e)
         {
             service = new Service1Client();
@@ -164,8 +163,6 @@ namespace Main
             currentBookName = currentRow.Cells[1].Value.ToString();
             label13.Text = currentBookName;
         }
-
-        
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -310,16 +307,17 @@ namespace Main
 
         private void tabControl1_TabIndexChanged(object sender, EventArgs e)
         {
-            //TODO переделать на конструкцию switch
-            if (tabControl1.TabIndex == 5)
+            switch (tabControl1.TabIndex)
             {
-                ExpiresTabOpen();
-            } else if(tabControl1.TabIndex == 4)
-            {
-                ReplenishBooksOpen();
-            } else if(tabControl1.TabIndex == 3)
-            {
-                WriteOffBooksTabOpen();
+                case 3:
+                    WriteOffBooksTabOpen();
+                    break;
+                case 4:
+                    ReplenishBooksOpen();
+                    break;
+                case 5:
+                    ExpiresTabOpen();
+                    break;
             }
         }
     }

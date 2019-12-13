@@ -203,7 +203,7 @@
             this.checkBox2.Location = new System.Drawing.Point(307, 462);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(179, 21);
-            this.checkBox2.TabIndex = 10;
+            this.checkBox2.TabIndex = 11;
             this.checkBox2.Text = "Еще какие-то правила";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
@@ -213,7 +213,7 @@
             this.checkBox1.Location = new System.Drawing.Point(23, 462);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(266, 21);
-            this.checkBox1.TabIndex = 9;
+            this.checkBox1.TabIndex = 10;
             this.checkBox1.Text = "Правила пользования библиотекой";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
@@ -235,7 +235,7 @@
             this.groupBox2.Location = new System.Drawing.Point(24, 269);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(345, 106);
-            this.groupBox2.TabIndex = 14;
+            this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Паспортные данные";
             // 
@@ -253,7 +253,7 @@
             this.textBox8.Location = new System.Drawing.Point(72, 45);
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(88, 22);
-            this.textBox8.TabIndex = 6;
+            this.textBox8.TabIndex = 7;
             this.textBox8.Text = "0987";
             // 
             // label6
@@ -270,7 +270,7 @@
             this.textBox9.Location = new System.Drawing.Point(237, 44);
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(89, 22);
-            this.textBox9.TabIndex = 7;
+            this.textBox9.TabIndex = 8;
             this.textBox9.Text = "123456";
             // 
             // label5
@@ -304,7 +304,7 @@
             this.textBox5.Location = new System.Drawing.Point(196, 404);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(173, 22);
-            this.textBox5.TabIndex = 8;
+            this.textBox5.TabIndex = 9;
             this.textBox5.Text = "89129934567";
             // 
             // textBox4
@@ -427,7 +427,7 @@
             this.checkBox3.Location = new System.Drawing.Point(20, 68);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(182, 21);
-            this.checkBox3.TabIndex = 5;
+            this.checkBox3.TabIndex = 23;
             this.checkBox3.Text = "Отображать выданные";
             this.checkBox3.UseVisualStyleBackColor = true;
             this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
@@ -535,7 +535,7 @@
             this.button3.Location = new System.Drawing.Point(254, 62);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 30);
-            this.button3.TabIndex = 2;
+            this.button3.TabIndex = 22;
             this.button3.Text = "Найти";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -545,7 +545,7 @@
             this.textBox7.Location = new System.Drawing.Point(20, 34);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(309, 22);
-            this.textBox7.TabIndex = 1;
+            this.textBox7.TabIndex = 21;
             // 
             // button4
             // 
