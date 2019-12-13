@@ -47,7 +47,7 @@ namespace LibraryService
         List<List<string>> GetAbonement(int id);
 
         [OperationContract]
-        void ReturnBooks(int[] id, int[] idBook, string[] genre);
+        void ReturnBooks(int[] id, int[] idBook, string[] genre, int[] disrepair);
 
         [OperationContract]
         List<string> GetGenre();

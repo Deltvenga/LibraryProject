@@ -13,7 +13,7 @@ namespace LibraryService
             return string.Format("You entered: {0}", value);
         }
 
-        static string connectionString = Settings.Default.RomaCon;
+        static string connectionString = Settings.Default.ElyaCon;
 
         public void AddNewReader(string[] newReaderArray)
         {
@@ -168,7 +168,7 @@ namespace LibraryService
             con.Open();
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "Select Abonement.id, Books.idBook, Books.NameBook, Abonement.DataBegin, Abonement.DataEnd, Abonement.DataFactEnd From Abonement Inner join Readers on Abonement.idReader = Readers.idReader inner join Books on Abonement.idBook = Books.idBook Where Abonement.idReader = '" + id + "' and Abonement.DataFactEnd is null;";
+            cmd.CommandText = "Select Abonement.id, Books.idBook, Books.NameBook, Abonement.DataBegin, Abonement.DataEnd, Books.Disrepair From Abonement Inner join Readers on Abonement.idReader = Readers.idReader inner join Books on Abonement.idBook = Books.idBook Where Abonement.idReader = '" + id + "' and Abonement.DataFactEnd is null;";
 
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -186,7 +186,8 @@ namespace LibraryService
                 rows.Add(dtreader["NameBook"].ToString());
                 rows.Add(dtreader["DataBegin"].ToString());
                 rows.Add(dtreader["DataEnd"].ToString());
-                rows.Add(dtreader["DataFactEnd"].ToString());
+                //rows.Add(dtreader["DataFactEnd"].ToString());
+                rows.Add(dtreader["Disrepair"].ToString());
                 list.Add(rows);
             }
 
@@ -194,7 +195,7 @@ namespace LibraryService
             return list;
         }
 
-        public void ReturnBooks(int[] id, int[] idBook, string[] genre)
+        public void ReturnBooks(int[] id, int[] idBook, string[] genre, int[] disrepair)
         {
             var day = DateTime.Now.Day;
             var month = DateTime.Now.Month;
@@ -213,7 +214,7 @@ namespace LibraryService
                 
                 SqlCommand changeStatus = con.CreateCommand();
                 changeStatus.CommandType = CommandType.Text;
-                changeStatus.CommandText = "Update Books Set Status = '" + genre[i] + "' Where idBook = '" + idBook[i] + "';";
+                changeStatus.CommandText = "Update Books Set Status = '" + genre[i] + "', Disrepair = '" + disrepair[i] + "' Where idBook = '" + idBook[i] + "';";
                 changeStatus.ExecuteNonQuery();
             }
             con.Close();

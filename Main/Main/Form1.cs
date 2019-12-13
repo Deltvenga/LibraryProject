@@ -28,6 +28,7 @@ namespace Main
             arr[6] = textBox10.Text;
             arr[7] = textBox5.Text;
 
+            // TODO: добавить обработку else
             if (checkBox1.Checked && checkBox2.Checked)
             {
                 var d = new ServiceReference1.Service1Client();
@@ -255,6 +256,7 @@ namespace Main
             List<int> abonId = new List<int>();
             List<int> booksId = new List<int>();
             List<string> genre = new List<string>();
+            List<int> disrepair = new List<int>();
 
             foreach (DataGridViewRow row in dataGridView5.Rows)
             {
@@ -263,9 +265,10 @@ namespace Main
                     abonId.Add(int.Parse(row.Cells[0].Value.ToString()));
                     booksId.Add(int.Parse(row.Cells[1].Value.ToString()));
                     genre.Add(row.Cells[7].Value.ToString());
+                    disrepair.Add(int.Parse(row.Cells[5].Value.ToString()));
                 }
             }
-            d.ReturnBooks(abonId.ToArray(), booksId.ToArray(), genre.ToArray());
+            d.ReturnBooks(abonId.ToArray(), booksId.ToArray(), genre.ToArray(), disrepair.ToArray());
             UpdateDG5();
         }
 
