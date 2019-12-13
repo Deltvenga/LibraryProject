@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using LibraryService.Properties;
@@ -13,7 +10,7 @@ namespace LibraryService
     [DataContract]
     public class BookRepository
     {
-        static string connectionString = Settings.Default.ElyaCon;
+        static string connectionString = Settings.Default.RomaCon;
 
         [DataMember]
         List<Book> _listBooks = new List<Book>();
@@ -56,13 +53,14 @@ namespace LibraryService
         }
 
         [OperationContract]
-        public Book[] FindBooks(string searchString)
+        public Book[] FindBooks(string searchString, bool isOnlyAccessible)
         {
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            string sqlString = "Select * From Books Where lower(NameBook) LIKE lower('%?%') OR idBook LIKE ('?') OR lower(Publish) LIKE lower('%?%');";
+            string sqlString = "Select * From Books Where (lower(NameBook) LIKE lower('%?%') OR idBook LIKE ('?') OR lower(Publish) LIKE lower('%?%'))";
+            if (isOnlyAccessible) sqlString += "AND Status <> 'Выдана'";
             cmd.CommandText = sqlString.Replace("?", searchString);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -155,7 +153,7 @@ namespace LibraryService
                 books.NameBook = dtreader["NameBook"].ToString();
                 books.CountPhonetic = int.Parse(dtreader["Kol"].ToString());
 
-                if (books.CountPhonetic < 3)
+                if (books.CountPhonetic < MIN_BOOKS_COUNT)
                 {                  
                     SqlCommand command = con.CreateCommand();
                     command.CommandType = CommandType.Text;
@@ -204,7 +202,7 @@ namespace LibraryService
             {
                 Book books = new Book();
                 books.NameBook = DTreader["NameBook"].ToString();
-                books.CountPhonetic = int.Parse(DTreader["CountBooks"].ToString());
+                books.CountPhonetic = (MIN_BOOKS_COUNT + 1 - int.Parse(DTreader["CountBooks"].ToString()));
                 replenishList.Add(books);             
             }
 

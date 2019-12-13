@@ -15,17 +15,11 @@ namespace Main.ServiceReference1 {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
     internal interface IService1 {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetData", ReplyAction="http://tempuri.org/IService1/GetDataResponse")]
-        string GetData(int value);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetData", ReplyAction="http://tempuri.org/IService1/GetDataResponse")]
-        System.Threading.Tasks.Task<string> GetDataAsync(int value);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddNewReader", ReplyAction="http://tempuri.org/IService1/AddNewReaderResponse")]
+        string AddNewReader(string[] array);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddNewReader", ReplyAction="http://tempuri.org/IService1/AddNewReaderResponse")]
-        void AddNewReader(string[] array);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddNewReader", ReplyAction="http://tempuri.org/IService1/AddNewReaderResponse")]
-        System.Threading.Tasks.Task AddNewReaderAsync(string[] array);
+        System.Threading.Tasks.Task<string> AddNewReaderAsync(string[] array);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/HasExpires", ReplyAction="http://tempuri.org/IService1/HasExpiresResponse")]
         System.Tuple<string[], string[][]> HasExpires();
@@ -34,10 +28,10 @@ namespace Main.ServiceReference1 {
         System.Threading.Tasks.Task<System.Tuple<string[], string[][]>> HasExpiresAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetBooks", ReplyAction="http://tempuri.org/IService1/GetBooksResponse")]
-        LibraryService.Book[] GetBooks(string name);
+        LibraryService.Book[] GetBooks(string name, bool isOnlyAccessible);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetBooks", ReplyAction="http://tempuri.org/IService1/GetBooksResponse")]
-        System.Threading.Tasks.Task<LibraryService.Book[]> GetBooksAsync(string name);
+        System.Threading.Tasks.Task<LibraryService.Book[]> GetBooksAsync(string name, bool isOnlyAccessible);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddNewAbonement", ReplyAction="http://tempuri.org/IService1/AddNewAbonementResponse")]
         string AddNewAbonement(int idReader, int idBook);
@@ -121,19 +115,11 @@ namespace Main.ServiceReference1 {
                 base(binding, remoteAddress) {
         }
         
-        public string GetData(int value) {
-            return base.Channel.GetData(value);
+        public string AddNewReader(string[] array) {
+            return base.Channel.AddNewReader(array);
         }
         
-        public System.Threading.Tasks.Task<string> GetDataAsync(int value) {
-            return base.Channel.GetDataAsync(value);
-        }
-        
-        public void AddNewReader(string[] array) {
-            base.Channel.AddNewReader(array);
-        }
-        
-        public System.Threading.Tasks.Task AddNewReaderAsync(string[] array) {
+        public System.Threading.Tasks.Task<string> AddNewReaderAsync(string[] array) {
             return base.Channel.AddNewReaderAsync(array);
         }
         
@@ -145,12 +131,12 @@ namespace Main.ServiceReference1 {
             return base.Channel.HasExpiresAsync();
         }
         
-        public LibraryService.Book[] GetBooks(string name) {
-            return base.Channel.GetBooks(name);
+        public LibraryService.Book[] GetBooks(string name, bool isOnlyAccessible) {
+            return base.Channel.GetBooks(name, isOnlyAccessible);
         }
         
-        public System.Threading.Tasks.Task<LibraryService.Book[]> GetBooksAsync(string name) {
-            return base.Channel.GetBooksAsync(name);
+        public System.Threading.Tasks.Task<LibraryService.Book[]> GetBooksAsync(string name, bool isOnlyAccessible) {
+            return base.Channel.GetBooksAsync(name, isOnlyAccessible);
         }
         
         public string AddNewAbonement(int idReader, int idBook) {

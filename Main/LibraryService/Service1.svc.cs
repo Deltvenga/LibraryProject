@@ -8,43 +8,20 @@ namespace LibraryService
 {   
     public class Service1 : IService1
     {
-        public string GetData(int value)
+        static string connectionString = Settings.Default.RomaCon;
+
+        public string AddNewReader(string[] newReaderArray)
         {
-            return string.Format("You entered: {0}", value);
+            SqlConnection con = new SqlConnection(connectionString);
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText =
+                "Insert into [Readers] values('" + newReaderArray[0] + "', '" + newReaderArray[1] + "', '" + newReaderArray[2] + "', '" + newReaderArray[3] + "', '" + int.Parse(newReaderArray[4]) + "', '" + int.Parse(newReaderArray[5]) + "', '" + newReaderArray[6] + "', '" + newReaderArray[7] + "');";
+            cmd.ExecuteNonQuery();
+            con.Close();
+            return "success";
         }
-
-        static string connectionString = Settings.Default.ElyaCon;
-
-        public void AddNewReader(string[] newReaderArray)
-        {
-            //if (!CheckBlackList(newReaderArray[4], newReaderArray[5]))
-            //{
-                SqlConnection con = new SqlConnection(connectionString);
-                con.Open();
-                SqlCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText =
-                    "Insert into [Readers] values('" + newReaderArray[0] + "', '" + newReaderArray[1] + "', '" + newReaderArray[2] + "', '" + newReaderArray[3] + "', '" + int.Parse(newReaderArray[4]) + "', '" + int.Parse(newReaderArray[5]) + "', '" + newReaderArray[6] + "', '" + newReaderArray[7] + "');";
-                cmd.ExecuteNonQuery();
-
-                con.Close();
-            //}           
-        }
-
-        //public bool CheckBlackList(string passportSerial, string passportNumber)
-        //{
-        //    SqlConnection con = new SqlConnection(connectionString);
-        //    con.Open();
-        //    SqlCommand cmd = con.CreateCommand();
-        //    cmd.CommandType = CommandType.Text;
-        //    cmd.CommandText =
-        //        "Select idReader From BlackList, Readers Where Readers.passportSerial = '" + passportSerial + "' and Readers.passportNumber = '" + passportNumber + "';";
-        //    string result = cmd.ExecuteScalar().ToString();
-
-        //    if (result != null)
-        //        return true;
-        //    return false;
-        //}
 
         public Tuple<List<string>, List<List<string>>> HasExpires()
         {
@@ -54,10 +31,10 @@ namespace LibraryService
             return hh;
         }
 
-        public Book[] GetBooks(string name)
+        public Book[] GetBooks(string name, bool isOnlyAccessible)
         {
             BookRepository bookRepository = new BookRepository();
-            var books = bookRepository.FindBooks(name);
+            var books = bookRepository.FindBooks(name, isOnlyAccessible);
             return books;
         }
 
@@ -112,8 +89,6 @@ namespace LibraryService
             return readers;
 
         }
-
-        //public static List<string> writedOffBooks = new List<string>();
 
         public Book[] GetWriteOffBooks()
         {
@@ -181,16 +156,13 @@ namespace LibraryService
             {
                 List<string> rows = new List<string>();
                 rows.Add(dtreader["id"].ToString());
-                //rows.Add(dtreader["firstName"].ToString() + " " + dtreader["lastName"].ToString() + " " + dtreader["middleName"].ToString());
                 rows.Add(dtreader["idBook"].ToString());
                 rows.Add(dtreader["NameBook"].ToString());
                 rows.Add(dtreader["DataBegin"].ToString());
                 rows.Add(dtreader["DataEnd"].ToString());
-                //rows.Add(dtreader["DataFactEnd"].ToString());
                 rows.Add(dtreader["Disrepair"].ToString());
                 list.Add(rows);
             }
-
             con.Close();
             return list;
         }
