@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Timers;
 using LibraryService.Properties;
 
 namespace LibraryService
@@ -14,7 +11,7 @@ namespace LibraryService
     [DataContract]
     public class Readers
     {
-        static string connectionString = Settings.Default.ElyaCon;     
+        static string connectionString = Settings.Default.RomaCon;     
 
         public Readers()
         {
@@ -103,7 +100,6 @@ namespace LibraryService
 
         private string getDate(int day, int month, int year)
         {
-            //$"{year}-{month}-{day}";
             var g = (year + '-' + month + '-' + day).ToString();
             return (year + '-' + month + '-' + day).ToString();
         }
@@ -113,8 +109,7 @@ namespace LibraryService
             var day = DateTime.Now.Day;
             var month = DateTime.Now.Month;
             var year = DateTime.Now.Year;
-            return year + "-" + month + "-" + day;
-            //return getDate(day, month, year);
+            return getDate(day, month, year);
         }
     }
 }

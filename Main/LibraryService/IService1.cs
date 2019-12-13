@@ -12,18 +12,14 @@ namespace LibraryService
     [ServiceContract]
     public interface IService1
     {
-
         [OperationContract]
-        string GetData(int value);
-
-        [OperationContract]
-        void AddNewReader(string[] array);
+        string AddNewReader(string[] array);
 
         [OperationContract]
         Tuple<List<string>, List<List<string>>> HasExpires();
 
         [OperationContract]
-        Book[] GetBooks(string name);
+        Book[] GetBooks(string name, bool isOnlyAccessible);
 
         [OperationContract]
         string AddNewAbonement(int idReader, int idBook);
