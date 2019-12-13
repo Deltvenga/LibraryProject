@@ -117,7 +117,7 @@ namespace Main
 
             public ComboboxValues(Reader reader)
             {
-                fio = reader.LastName + " " + reader.FirstName + " " + reader.MiddleName;
+                fio = reader.LastName + " " + reader.FirstName + " " + reader.MiddleName + " - " + reader.IdReader;
                 id = reader.IdReader;
             }
             public string fio { get; set; }
