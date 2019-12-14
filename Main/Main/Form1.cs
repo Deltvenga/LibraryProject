@@ -69,16 +69,18 @@ namespace Main
                 string result = service.AddNewReader(queryArr);
                 if (result == "success")
                 {
-                    MessageBox.Show("Пользователь успешно создан");
+                    MessageBox.Show("Пользователь успешно создан");                  
                 }
                 else
                 {
                     MessageBox.Show("Ошибка добавления читателя");
                 }
-            } else
+            }
+            else
             {
                 MessageBox.Show("Вы должны подтвердить соглашения");
-            }    
+            }
+            
         }
 
         private void ExpiresTabOpen()
@@ -96,24 +98,7 @@ namespace Main
                 DGVDataTable.Rows.Add(row);
             }
             dataGridView1.DataSource = DGVDataTable;
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            var data = service.HasExpires();
-
-            var DGVDataTable = new DataTable();
-            
-            foreach(var col in data.Item1)
-            {
-                DGVDataTable.Columns.Add(col);
-            }
-            foreach(var row in data.Item2)
-            {
-                DGVDataTable.Rows.Add(row);
-            }
-            dataGridView1.DataSource = DGVDataTable;
-        }
+        }       
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -305,9 +290,17 @@ namespace Main
             }
         }
 
-        private void tabControl1_TabIndexChanged(object sender, EventArgs e)
+        private void textBox7_KeyDown(object sender, KeyEventArgs e)
         {
-            switch (tabControl1.TabIndex)
+            if (e.KeyCode == Keys.Enter)
+            {
+                button3_Click(null, null);
+            }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (tabControl1.SelectedIndex)
             {
                 case 3:
                     WriteOffBooksTabOpen();
@@ -319,6 +312,45 @@ namespace Main
                     ExpiresTabOpen();
                     break;
             }
+        }
+
+        const string LIBRARIAN_PASS = "1";
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            if (button2.Text == "Выключить")
+            {
+                if (textBox11.Text == LIBRARIAN_PASS)
+                {
+                    button2.Text = "Включить";
+                    for (int i = 1; i < tabControl1.TabPages.Count; i++)
+                    {
+                        tabControl1.TabPages[i].Enabled = true;
+                    }
+
+                    comboBox1.Enabled = true;
+                    textBox6.Enabled = true;
+                    textBox11.Clear();
+                    textBox11.Enabled = false;
+                }
+                else
+                {
+                    MessageBox.Show("Введен неверный пароль");
+                }
+            }
+            else
+            {
+                for (int i = 1; i < tabControl1.TabPages.Count; i++)
+                {
+                    tabControl1.TabPages[i].Enabled = false;
+                }
+
+                comboBox1.Enabled = false;
+                textBox6.Enabled = false;
+                button2.Text = "Выключить";
+                textBox11.Enabled = true;
+            }
+                        
         }
     }
 }
